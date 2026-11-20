@@ -2,7 +2,7 @@ import type { ImageMetadata } from 'astro';
 import type { ServiceSlug } from './services';
 import hero from '@/assets/photos/hero.jpg';
 import campagne from '@/assets/photos/campagne.jpg';
-import formationIa from '@/assets/photos/formation-ia.jpg';
+import formationIa from '@/assets/photos/formation-ia.png';
 import sitesWeb from '@/assets/photos/sites-web.png';
 import publicite from '@/assets/photos/publicite.png';
 import logiciels from '@/assets/photos/logiciels.png';
@@ -49,13 +49,7 @@ export const photos: Partial<Record<PhotoKey, Photo>> = {
   },
   'formation-ia': {
     src: formationIa,
-    alt: 'Une personne prend des notes dans un carnet, à côté d’un ordinateur portable.',
-    credit: {
-      title: 'Writing notes while using a laptop at a desk',
-      author: 'Shixart1985',
-      ...ccBy2,
-      source: 'https://commons.wikimedia.org/wiki/File:Writing_notes_while_using_a_laptop_at_a_desk.jpg',
-    },
+    alt: 'Des mains tapent sur le clavier d’un ordinateur portable, dans une salle où d’autres personnes travaillent sur ordinateur.',
   },
   campagne: {
     src: campagne,
