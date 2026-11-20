@@ -76,14 +76,16 @@ Certains contenus attendent encore des données réelles : témoignages, prix d'
 la FAQ, programme de la formation, parcours du fondateur, numéros d'immatriculation. Ils existent dans le
 code sous forme d'**exemples**, marqués `draft: true`.
 
-- Sur le site public, ces exemples sont **masqués** : aucun faux avis ni faux prix n'est montré à un visiteur.
-- En mode démonstration, ils s'affichent avec une étiquette « Exemple », un bandeau d'avertissement en haut
-  de page, et les pages portent `noindex` pour rester hors de Google.
+- En **mode démonstration** (actif par défaut), ils s'affichent avec une étiquette « Exemple », un bandeau
+  d'avertissement en haut de page, et les pages portent `noindex` pour rester hors de Google.
+- En **mode public**, ces exemples sont masqués : aucun faux avis ni faux prix n'est montré à un visiteur,
+  et le site redevient indexable.
 
-Le mode démonstration est actif avec `npm run dev`. Pour un build ou un déploiement de prévisualisation :
+Pour passer en mode public, définir la variable d'environnement `PUBLIC_SHOW_DRAFTS=false` (sur Vercel :
+Settings → Environment Variables, puis redéployer). En local :
 
 ```bash
-PUBLIC_SHOW_DRAFTS=true npm run build
+PUBLIC_SHOW_DRAFTS=false npm run build
 ```
 
 Pour publier un contenu : remplacer l'exemple par la donnée vérifiée, puis supprimer `draft: true`.

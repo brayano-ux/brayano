@@ -47,12 +47,13 @@ export const site = {
 /**
  * Mode démonstration.
  * Les contenus marqués `draft: true` (témoignages, prix, réponses de FAQ, programme…) sont des EXEMPLES
- * en attente de données vérifiées. Ils ne s'affichent que si ce mode est actif, avec une étiquette
- * « Exemple » et un bandeau d'avertissement, et les pages ne sont alors pas indexables par Google.
- * Actif en développement ; en production, uniquement avec PUBLIC_SHOW_DRAFTS=true.
+ * en attente de données vérifiées. En mode démonstration, ils s'affichent avec une étiquette « Exemple »
+ * et un bandeau d'avertissement, et les pages ne sont pas indexables par Google.
+ *
+ * Le mode démonstration est ACTIF PAR DÉFAUT tant que le site contient des exemples.
+ * Pour publier le site sans aucun contenu fictif : définir PUBLIC_SHOW_DRAFTS=false.
  */
-export const showDrafts: boolean =
-  import.meta.env.PUBLIC_SHOW_DRAFTS === 'true' || (import.meta.env.DEV && import.meta.env.PUBLIC_SHOW_DRAFTS !== 'false');
+export const showDrafts: boolean = import.meta.env.PUBLIC_SHOW_DRAFTS !== 'false';
 
 /** Garde les éléments vérifiés, et les exemples seulement en mode démonstration. */
 export function published<T extends { draft?: boolean }>(items: readonly T[]): T[] {
