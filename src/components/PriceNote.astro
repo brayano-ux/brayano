@@ -1,17 +1,14 @@
 ---
-import DraftBadge from './DraftBadge.astro';
-import { showDrafts } from '@/config/site';
 import type { Service } from '@/data/services';
 
 interface Props { price: Service['price']; compact?: boolean }
 const { price, compact = false } = Astro.props;
-const visible = price && (!price.draft || showDrafts);
+const visible = price && !price.draft;
 ---
 
 {visible && price && (
   <p class:list={['price', { 'price--compact': compact }]}>
     <span class="price__label">{price.label}</span>
-    {price.draft && <DraftBadge label="Prix d’exemple" />}
     {!compact && <span class="price__note">{price.note}</span>}
   </p>
 )}

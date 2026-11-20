@@ -2,7 +2,6 @@
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import CtaBand from '@/components/CtaBand.astro';
-import DraftBadge from '@/components/DraftBadge.astro';
 import { published } from '@/config/site';
 import { faq, faqCategories } from '@/data/faq';
 
@@ -32,7 +31,6 @@ const groups = faqCategories
               <details class="faq__item">
                 <summary>
                   <span>{item.question}</span>
-                  {item.draft && <DraftBadge label="Réponse d’exemple" />}
                 </summary>
                 <p>{item.answer}</p>
               </details>

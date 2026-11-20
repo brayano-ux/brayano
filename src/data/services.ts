@@ -27,12 +27,9 @@ export interface Service {
   notes: string[];
   /** Réalisations liées (slugs de src/data/projects.ts). */
   relatedProjects: string[];
-  /**
-   * Prix d'appel. ⚠ Tant que `draft` vaut true, c'est un EXEMPLE à valider par le fondateur :
-   * il ne s'affiche qu'en mode démonstration.
-   */
+  /** Tarif uniquement lorsqu’il a été confirmé par le fondateur. */
   price?: { label: string; note: string; draft?: boolean };
-  /** Programme détaillé (formation). ⚠ Même règle que pour le prix. */
+  /** Programme détaillé de formation, si les modalités ont été confirmées. */
   programme?: { format: string; duration: string; modules: { title: string; text: string }[]; draft?: boolean };
 }
 
@@ -68,7 +65,6 @@ export const services: Service[] = [
       'Un site rend votre entreprise visible et joignable ; il ne garantit pas à lui seul un volume de ventes.',
     ],
     relatedProjects: ['editions-baobab', 'ecole-mother-rosa'],
-    price: { label: 'À partir de 100 000 FCFA', note: 'Site vitrine jusqu’à cinq pages. Nom de domaine et hébergement en sus.', draft: true },
   },
   {
     slug: 'publicite',
@@ -102,7 +98,7 @@ export const services: Service[] = [
       'Aucun volume de messages ni de ventes n’est garanti. Les résultats passés ne préjugent pas des suivants.',
     ],
     relatedProjects: ['campagne-pure-molecule'],
-    price: { label: 'À partir de 25 000 FCFA par mois', note: 'Gestion de la campagne. Le budget publicitaire versé à Meta est en sus.', draft: true },
+    price: { label: 'Gestion publicitaire : 15 000 FCFA/mois', note: 'Budget publicitaire Meta en supplément. Option Test : 25 000 FCFA. Pack Visibilité : 100 000 FCFA, comprenant 10 visuels, une campagne Meta, la visibilité Google Maps et la mise en place de WhatsApp Business.' },
   },
   {
     slug: 'logiciels',
@@ -134,7 +130,6 @@ export const services: Service[] = [
       'Les coûts d’hébergement et de services tiers sont précisés avant le démarrage.',
     ],
     relatedProjects: ['brayano-ia'],
-    price: { label: 'Sur devis', note: 'Chiffrage après une première évaluation gratuite du besoin.', draft: true },
   },
   {
     slug: 'automatisation-ia',
@@ -166,7 +161,6 @@ export const services: Service[] = [
       'Les informations confidentielles ne sont transmises à un outil qu’avec votre accord.',
     ],
     relatedProjects: ['brayano-ia'],
-    price: { label: 'À partir de 50 000 FCFA', note: 'Mise en place d’une première automatisation. Abonnements aux outils en sus.', draft: true },
   },
   {
     slug: 'visibilite-google',
@@ -199,7 +193,7 @@ export const services: Service[] = [
       'La validation de la fiche dépend de Google et peut prendre du temps.',
     ],
     relatedProjects: [],
-    price: { label: 'À partir de 20 000 FCFA', note: 'Création ou optimisation complète de la fiche d’établissement.', draft: true },
+    price: { label: '20 000 FCFA', note: 'Création ou optimisation de votre fiche Google Business Profile.' },
   },
   {
     slug: 'formation-ia',
@@ -232,19 +226,6 @@ export const services: Service[] = [
       'Les résultats dépendent de la pratique : aucun gain de temps ou de chiffre d’affaires n’est garanti.',
     ],
     relatedProjects: [],
-    price: { label: 'À partir de 30 000 FCFA par participant', note: 'Tarif de groupe sur demande pour une entreprise.', draft: true },
-    programme: {
-      draft: true,
-      format: 'En présentiel à Douala ou à distance, en petit groupe ou en individuel',
-      duration: 'Deux demi-journées',
-      modules: [
-        { title: 'Prendre en main un assistant IA', text: 'Poser une demande claire, donner du contexte, obtenir une réponse exploitable.' },
-        { title: 'Écrire pour ses clients', text: 'Messages WhatsApp, descriptions de produits, publications, réponses aux réclamations.' },
-        { title: 'Préparer ses supports', text: 'Offre commerciale, présentation, fiche produit, compte rendu.' },
-        { title: 'Gagner du temps chaque semaine', text: 'Modèles réutilisables pour les tâches qui reviennent.' },
-        { title: 'Vérifier et protéger', text: 'Repérer les erreurs de l’IA et savoir ce qu’il ne faut jamais lui confier.' },
-      ],
-    },
   },
 ];
 
