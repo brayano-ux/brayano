@@ -98,7 +98,7 @@ export const services: Service[] = [
       'Aucun volume de messages ni de ventes n’est garanti. Les résultats passés ne préjugent pas des suivants.',
     ],
     relatedProjects: ['campagne-pure-molecule'],
-    price: { label: 'Option Test : 45 000 FCFA', note: '15 000 FCFA de gestion + 30 000 FCFA de budget publicitaire Meta. Offre ponctuelle, à confirmer selon le besoin.' },
+    price: { label: 'Option Test : 45 000 FCFA', note: 'Offre test de publicité. Le périmètre exact et le budget publicitaire sont confirmés dans le devis.' },
   },
   {
     slug: 'logiciels',
