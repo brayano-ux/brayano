@@ -14,7 +14,10 @@ const { name, sizes, ratio = '3 / 2', eager = false } = Astro.props;
 const photo = photos[name];
 ---
 
-<div class:list={['photo', { 'photo--empty': !photo }]} style={`aspect-ratio: ${ratio}`}>
+<div
+  class:list={['photo', { 'photo--empty': !photo, 'photo--contain': photo?.fit === 'contain' }]}
+  style={`aspect-ratio: ${ratio};${photo?.background ? ` background: ${photo.background};` : ''}`}
+>
   {photo && (
     <Image
       src={photo.src}
@@ -31,4 +34,5 @@ const photo = photos[name];
   .photo { width: 100%; overflow: hidden; border-radius: inherit; background: var(--surface-2); }
   .photo--empty { background: linear-gradient(140deg, var(--surface-2), rgb(37 99 235 / 0.16)); }
   .photo :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 900ms var(--ease-out); }
+  .photo.photo--contain :global(img) { object-fit: contain; }
 </style>

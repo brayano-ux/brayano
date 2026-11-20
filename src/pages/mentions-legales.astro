@@ -2,6 +2,7 @@
 import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import { site, hosting } from '@/config/site';
+import { creditedPhotos } from '@/data/photos';
 ---
 
 <Base title="Mentions légales · Brayano Service" description="Éditeur, responsable de la publication, hébergeur et conditions d’utilisation du site de Brayano Service.">
@@ -35,6 +36,18 @@ import { site, hosting } from '@/config/site';
         Les captures d’écran présentées dans les réalisations montrent des sites et des produits conçus par {site.name}.
         Les noms, logos et contenus qui y figurent appartiennent à leurs propriétaires respectifs.
       </p>
+
+      <h2>Crédits photographiques</h2>
+      <p>Les photographies suivantes proviennent de Wikimedia Commons et sont utilisées, recadrées, selon les termes de leur licence :</p>
+      <ul>
+        {creditedPhotos.map((photo) => photo.credit && (
+          <li>
+            « <a href={photo.credit.source} target="_blank" rel="noopener">{photo.credit.title}</a> », par {photo.credit.author} —
+            licence <a href={photo.credit.licenseUrl} target="_blank" rel="noopener">{photo.credit.license}</a>.
+          </li>
+        ))}
+      </ul>
+      <p>Les autres images d’illustration des services ont été fournies par {site.name}.</p>
 
       <h2>Marques citées</h2>
       <p>

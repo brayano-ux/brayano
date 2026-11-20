@@ -68,7 +68,10 @@ import Photo from './Photo.astro';
     0%, 100% { transform: translate3d(0, 0, 0); }
     50% { transform: translate3d(0, -8px, 0); }
   }
-  @media (max-width: 30rem) {
-    .hv { padding-left: 0.75rem; }
+  /* Sur petit écran, la bulle descend sous la photo pour ne pas masquer le sujet. */
+  @media (max-width: 40rem) {
+    .hv { padding: 0 0 6.25rem 0.75rem; }
+    .hv__chat { width: min(15rem, 68%); padding: 0.7rem; }
+    .hv__chips { max-width: 80%; }
   }
 </style>

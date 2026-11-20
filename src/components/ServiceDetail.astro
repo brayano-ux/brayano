@@ -22,7 +22,7 @@ const others = services.filter((item) => item.slug !== service.slug);
       {service.cta}
     </a>
     <a class="btn btn--ghost" href={`/contact?service=${service.slug}`}>Demander un devis <Icon name="arrow" /></a>
-    <div slot="aside" class="sd__visual"><Photo name={service.slug} sizes="(min-width: 62rem) 30rem, 92vw" ratio="4 / 3" eager /></div>
+    <div slot="aside" class="sd__visual"><Photo name={service.slug} sizes="(min-width: 62rem) 30rem, 92vw" eager /></div>
   </PageHero>
 
   <section class="section">
