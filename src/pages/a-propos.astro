@@ -5,8 +5,7 @@ import PageHero from '@/components/PageHero.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Icon from '@/components/Icon.astro';
 import portrait from '@/assets/equipe/brayano.jpg';
-import DraftBadge from '@/components/DraftBadge.astro';
-import { site, published } from '@/config/site';
+import { site } from '@/config/site';
 import { services } from '@/data/services';
 import { whatsappLink } from '@/lib/whatsapp';
 
@@ -17,12 +16,11 @@ const principles = [
   { title: 'Des outils que vous maîtrisez', text: 'À la livraison, vous savez utiliser ce qui a été mis en place et vous en gardez les accès.' },
 ];
 
-// ⚠ Parcours d'EXEMPLE : dates et étapes à remplacer par le parcours réel du fondateur, puis retirer `draft`.
-const journey = published([
-  { year: '2023', title: 'Premiers sites web', text: 'Réalisation de sites pour des commerces et des indépendants de Douala.', draft: true },
-  { year: '2025', title: 'Publicité en ligne', text: 'Mise en place de campagnes Facebook et Instagram tournées vers WhatsApp.', draft: true },
-  { year: '2026', title: 'Lancement de Brayano IA', text: 'Mise en ligne de l’assistant IA pour les entreprises qui vendent sur WhatsApp.', draft: true },
-]);
+const journey = [
+  { year: '2026', title: 'BTS en génie logiciel', text: 'Diplôme obtenu en 2026, avec une orientation vers la conception et le développement de solutions numériques.' },
+  { year: 'Produit', title: 'Brayano IA', text: 'Conception et développement d’un assistant IA pour aider les entreprises à répondre aux clients sur WhatsApp.' },
+  { year: 'Projets', title: 'Sites web et campagnes publicitaires', text: 'Réalisations comprenant les sites Éditions Baobab et École Mother Rosa, ainsi que des campagnes Facebook et Instagram.' },
+];
 ---
 
 <Base
@@ -88,7 +86,7 @@ const journey = published([
       <div class="container split">
         <div class="split__head" data-reveal>
           <p class="eyebrow">Parcours</p>
-          <h2>Les étapes <DraftBadge /></h2>
+          <h2>Mon parcours et mes réalisations</h2>
         </div>
         <ol class="about__journey" data-reveal>
           {journey.map((step) => (
