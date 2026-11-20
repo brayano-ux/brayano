@@ -44,19 +44,9 @@ export const site = {
   },
 } as const;
 
-/**
- * Mode démonstration.
- * Les contenus marqués `draft: true` (témoignages, prix, réponses de FAQ, programme…) sont des EXEMPLES
- * en attente de données vérifiées. Ils ne s'affichent que si ce mode est actif, avec une étiquette
- * « Exemple » et un bandeau d'avertissement, et les pages ne sont alors pas indexables par Google.
- * Actif en développement ; en production, uniquement avec PUBLIC_SHOW_DRAFTS=true.
- */
-export const showDrafts: boolean =
-  import.meta.env.PUBLIC_SHOW_DRAFTS === 'true' || (import.meta.env.DEV && import.meta.env.PUBLIC_SHOW_DRAFTS !== 'false');
-
-/** Garde les éléments vérifiés, et les exemples seulement en mode démonstration. */
+/** Garde uniquement les contenus validés pour publication. */
 export function published<T extends { draft?: boolean }>(items: readonly T[]): T[] {
-  return items.filter((item) => !item.draft || showDrafts);
+  return items.filter((item) => !item.draft);
 }
 
 /** Messages préremplis, un par intention commerciale. */
