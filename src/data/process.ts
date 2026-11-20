@@ -1,7 +1,7 @@
 export const processSteps = [
   {
     title: 'Comprendre',
-    text: 'Vous expliquez votre activité, votre besoin et ce que vous attendez du projet. Nous posons les questions qui manquent.',
+    text: 'Vous expliquez votre activité, votre besoin et ce que vous attendez du projet. Je pose les questions qui manquent.',
   },
   {
     title: 'Proposer',

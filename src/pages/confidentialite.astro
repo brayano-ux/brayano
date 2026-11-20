@@ -1,0 +1,67 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import { site, hosting } from '@/config/site';
+---
+
+<Base title="Confidentialité · Brayano Service" description="Quelles données le site de Brayano Service traite, pourquoi, et comment exercer vos droits.">
+  <PageHero eyebrow="Informations légales" title="Confidentialité" lead="En résumé : ce site ne dépose aucun cookie de suivi, n’utilise aucun outil de mesure d’audience et n’enregistre pas ce que vous saisissez dans le formulaire." />
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Responsable du traitement</h2>
+      <p>
+        {site.name}, {site.legalForm.toLowerCase()} de {site.founder.fullName}, {site.city}, {site.country}. Contact :
+        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.
+      </p>
+
+      <h2>Navigation sur le site</h2>
+      <ul>
+        <li>Aucun cookie publicitaire ni traceur de mesure d’audience n’est déposé.</li>
+        <li>Les polices de caractères et les images sont servies depuis ce site, sans appel à un service tiers.</li>
+        <li>
+          Comme tout hébergeur, {hosting.name} enregistre des journaux techniques (adresse IP, date, page demandée)
+          nécessaires au fonctionnement et à la sécurité du service.
+        </li>
+      </ul>
+
+      <h2>Formulaire de demande de devis</h2>
+      <p>
+        Le formulaire fonctionne entièrement dans votre navigateur. Les informations que vous saisissez servent à
+        composer un message ; elles ne sont <strong>ni envoyées à un serveur de ce site, ni conservées</strong>. Rien
+        n’est transmis tant que vous n’avez pas vous-même envoyé ce message depuis WhatsApp ou votre messagerie.
+      </p>
+
+      <h2>Quand vous m’écrivez</h2>
+      <p>
+        Si vous m’écrivez par WhatsApp ou par e-mail, je reçois les informations que vous choisissez de communiquer : nom,
+        numéro, adresse e-mail, description de votre projet. Je les utilise uniquement pour vous répondre, préparer un
+        devis et, si nous travaillons ensemble, réaliser la prestation.
+      </p>
+      <ul>
+        <li>Ces échanges transitent par WhatsApp (Meta) ou par Gmail (Google), selon le canal que vous choisissez, et sont soumis à leurs propres règles de confidentialité.</li>
+        <li>Vos coordonnées ne sont ni vendues, ni louées, ni communiquées à des tiers à des fins commerciales.</li>
+        <li>Sans suite donnée à votre demande, vos messages peuvent être supprimés sur simple demande de votre part.</li>
+      </ul>
+
+      <h2>Liens vers d’autres sites</h2>
+      <p>
+        Les sites présentés dans les réalisations, le site de Brayano IA et les réseaux sociaux ont leurs propres règles
+        de confidentialité, sur lesquelles {site.name} n’a pas la main.
+      </p>
+
+      <h2>Vos droits</h2>
+      <p>
+        Conformément à la législation camerounaise relative à la protection des données à caractère personnel, vous
+        pouvez demander l’accès aux informations vous concernant, leur rectification ou leur suppression, en écrivant à
+        <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> ou par WhatsApp au {site.contact.phoneDisplay}.
+      </p>
+
+      <h2>Évolution de cette page</h2>
+      <p>
+        Si un outil de mesure d’audience ou un nouveau traitement de données venait à être ajouté au site, cette page
+        serait mise à jour avant sa mise en service.
+      </p>
+    </div>
+  </section>
+</Base>

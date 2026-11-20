@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { site, navigation } from '@/config/site';
+import { site, navigation, footerNavigation, legalNavigation } from '@/config/site';
 import { whatsappLink } from '@/lib/whatsapp';
 const year = new Date().getFullYear();
 ---
@@ -8,15 +8,14 @@ const year = new Date().getFullYear();
 <footer class="footer">
   <div class="container footer__grid">
     <div class="footer__about">
-      <a href="/" class="footer__brand"><Logo id="logo-footer" /></a>
+      <a href="/" class="footer__brand"><Logo /></a>
       <p class="muted">{site.description}</p>
     </div>
 
     <nav aria-label="Pied de page">
       <h2 class="footer__title">Le site</h2>
       <ul>
-        {navigation.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
-        <li><a href={site.product.url} target="_blank" rel="noopener">Site de Brayano IA</a></li>
+        {[...navigation, ...footerNavigation].map((item) => <li><a href={item.href}>{item.label}</a></li>)}
       </ul>
     </nav>
 
@@ -33,12 +32,16 @@ const year = new Date().getFullYear();
       <h2 class="footer__title">Suivre</h2>
       <ul>
         {site.social.map((item) => <li><a href={item.href} target="_blank" rel="noopener me">{item.label}</a></li>)}
+        <li><a href={site.product.url} target="_blank" rel="noopener">Site de Brayano IA</a></li>
       </ul>
     </div>
   </div>
 
   <div class="container footer__legal">
     <p>© {year} {site.name} · {site.legalForm} de {site.founder.fullName}</p>
+    <ul class="footer__legal-links">
+      {legalNavigation.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+    </ul>
   </div>
 </footer>
 
@@ -52,7 +55,8 @@ const year = new Date().getFullYear();
   .footer li a { display: inline-block; padding: 0.35rem 0; color: var(--text-muted); text-decoration: none; transition: color var(--dur-fast); }
   .footer li a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
   .footer li.muted { padding: 0.35rem 0; }
-  .footer__legal { margin-top: var(--space-7); padding-block: var(--space-5) calc(var(--space-5) + 4.5rem); border-top: 1px solid var(--line); color: var(--text-dim); font-size: 0.84rem; }
+  .footer__legal { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-2) var(--space-5); margin-top: var(--space-7); padding-block: var(--space-5) calc(var(--space-5) + 4.5rem); border-top: 1px solid var(--line); color: var(--text-dim); font-size: 0.84rem; }
+  .footer .footer__legal-links { display: flex; flex-wrap: wrap; gap: 0 var(--space-5); }
   @media (min-width: 48rem) {
     .footer__grid { grid-template-columns: 1.6fr 1fr 1.2fr 1.1fr; }
     .footer__legal { padding-bottom: var(--space-5); }

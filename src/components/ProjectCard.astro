@@ -1,0 +1,98 @@
+---
+import Icon from './Icon.astro';
+import BrowserFrame from './BrowserFrame.astro';
+import Metrics from './Metrics.astro';
+import { projectPath, type Project } from '@/data/projects';
+
+interface Props {
+  project: Project;
+  /** Carte en pleine largeur, image et texte côte à côte. */
+  wide?: boolean;
+  /** Niveau du titre selon le contexte de la page. */
+  heading?: 'h2' | 'h3';
+}
+const { project, wide = false, heading: Heading = 'h3' } = Astro.props;
+const isCampaign = project.type === 'campagne';
+---
+
+<article class:list={['project', { 'project--wide': wide || isCampaign, 'project--case': isCampaign }]}>
+  {project.image && (
+    <div class="project__media">
+      <BrowserFrame
+        image={project.image}
+        url={project.url}
+        sizes={wide ? '(min-width: 62rem) 44rem, 92vw' : '(min-width: 62rem) 36rem, 92vw'}
+      />
+    </div>
+  )}
+  {isCampaign && (
+    <div class="project__media project__media--metrics">
+      <Metrics metrics={project.metrics.slice(0, 2)} />
+      <p class="project__source">{project.metricsSource}</p>
+    </div>
+  )}
+  <div class="project__body">
+    <p class="project__meta"><span class="tag">{project.kind}</span>{project.sector}</p>
+    <Heading class="project__title">
+      <a href={projectPath(project)}>{project.name}</a>
+    </Heading>
+    <p class="muted">{project.summary}</p>
+    <ul class="project__points">
+      {project.highlights.map((point) => <li>{point}</li>)}
+    </ul>
+    <p class="project__skills">{project.skills.join(' · ')}</p>
+    <div class="project__links">
+      <span class="link-arrow" aria-hidden="true">Voir l’étude de cas <Icon name="arrow" /></span>
+      {project.url && (
+        <a class="project__ext" href={project.url} target="_blank" rel="noopener" data-track="realisation" data-track-origin={project.slug}>
+          Ouvrir le site<span class="visually-hidden"> {project.name}</span>
+          <Icon name="external" />
+        </a>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .project {
+    position: relative;
+    display: grid;
+    align-content: start;
+    height: 100%;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    overflow: hidden;
+    transition: border-color var(--dur);
+  }
+  .project:hover, .project:focus-within { border-color: rgb(77 147 255 / 0.6); }
+  .project__media { border-bottom: 1px solid var(--line); overflow: hidden; }
+  .project:hover .project__media :global(img) { transform: scale(1.025); }
+  .project__media--metrics { display: grid; gap: var(--space-4); align-content: center; padding: var(--space-6) var(--space-5); background: linear-gradient(165deg, var(--surface-2), var(--surface)); }
+  .project__source { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
+
+  .project__body { display: grid; gap: var(--space-3); padding: var(--space-5); align-content: start; }
+  .project__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--text-dim); }
+  .project__title { font-size: var(--step-2); letter-spacing: -0.025em; }
+  .project__title a { text-decoration: none; }
+  /* Toute la carte mène à l'étude de cas ; le lien externe reste cliquable au-dessus. */
+  .project__title a::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+  .project__points { display: grid; gap: 0.4rem; margin-top: var(--space-2); font-size: 0.94rem; }
+  .project__points li { position: relative; padding-left: 1.1rem; color: var(--text-muted); }
+  .project__points li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); }
+  .project__skills { padding-top: var(--space-3); border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--text-dim); }
+  .project__links { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3) var(--space-5); }
+  .project:hover .link-arrow :global(svg) { transform: translateX(4px); }
+  .project__ext { position: relative; z-index: 2; display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.5rem 0; font-size: 0.86rem; color: var(--text-muted); text-underline-offset: 4px; }
+  .project__ext:hover { color: var(--text); }
+  .project__ext :global(svg) { width: 0.9rem; height: 0.9rem; }
+
+  @media (min-width: 62rem) {
+    .project--wide { grid-template-columns: 1.3fr 1fr; align-items: stretch; }
+    .project--wide .project__media { border-bottom: 0; border-right: 1px solid var(--line); }
+    .project--wide .project__media :global(.frame) { height: 100%; display: flex; flex-direction: column; }
+    .project--wide .project__media :global(img) { flex: 1; aspect-ratio: auto; min-height: 21rem; height: 100%; }
+    .project--wide .project__body { padding: var(--space-6); align-content: center; }
+    .project--case { grid-template-columns: 1fr 1.3fr; }
+  }
+</style>

@@ -15,7 +15,7 @@ npm run build      # build de production dans dist/
 npm run preview    # servir le build localement
 npm run check      # vérification des types (Astro + TypeScript)
 npm run lint       # ESLint
-npm test           # tests unitaires (liens WhatsApp)
+npm test           # tests unitaires (liens WhatsApp, formulaire de devis)
 npm run smoke      # contrôle du build dans un navigateur (nécessite `npm i -D playwright`)
 ```
 
@@ -23,14 +23,13 @@ npm run smoke      # contrôle du build dans un navigateur (nécessite `npm i -D
 
 | Besoin | Fichier |
 | --- | --- |
-| Coordonnées, réseaux sociaux, messages WhatsApp, navigation | `src/config/site.ts` |
+| Coordonnées, réseaux sociaux, messages WhatsApp, navigation, hébergeur | `src/config/site.ts` |
 | Services | `src/data/services.ts` |
-| Réalisations (ajouter un projet, le masquer avec `verified: false`) | `src/data/projects.ts` |
-| Résultats de campagnes publicitaires | `src/data/campaigns.ts` |
-| Contenu de la section Brayano IA et conversation de démonstration | `src/data/brayanoIa.ts` |
+| Réalisations, études de cas et résultats de campagnes (masquer avec `verified: false`) | `src/data/projects.ts` |
+| Contenu Brayano IA : fonctionnalités, conversation de démonstration | `src/data/brayanoIa.ts` |
 | Étapes de la méthode | `src/data/process.ts` |
 | Couleurs, typographie, espacements, durées d'animation | `src/styles/tokens.css` |
-| Captures des projets, portrait | `src/assets/` |
+| Captures des projets, portrait, logo | `src/assets/` |
 
 Règle de contenu : un chiffre, un client ou un projet n'apparaît sur le site que s'il est documenté.
 Un projet sans URL ni capture reste à `verified: false` et n'est pas affiché.
@@ -52,10 +51,26 @@ Dans Vercel : Project → Settings → Domains → ajouter le domaine, puis cré
 enregistrements DNS indiqués par Vercel. Mettre ensuite à jour `PUBLIC_SITE_URL` et redéployer, afin que
 les balises canoniques, le sitemap et les aperçus de partage utilisent le bon domaine.
 
+## Pages
+
+| Adresse | Contenu |
+| --- | --- |
+| `/` | Accueil |
+| `/services`, `/services/[slug]` | Les six services ; une page détaillée par service |
+| `/formation-ia` | Formation pratique en IA |
+| `/realisations`, `/realisations/[slug]` | Portfolio et études de cas |
+| `/brayano-ia` | Présentation du produit Brayano IA |
+| `/a-propos` | Le fondateur et sa façon de travailler |
+| `/contact` | Coordonnées et formulaire de demande de devis |
+| `/mentions-legales`, `/confidentialite` | Pages légales |
+
+Le formulaire de devis n'envoie rien à un serveur : il valide la saisie, compose un message et ouvre
+WhatsApp (ou un e-mail) avec ce message. La logique est dans `src/lib/quote.ts`.
+
 ## État d'avancement
 
-Jalon 1 (livré) : fondations techniques, système visuel, page d'accueil complète, page 404, SEO technique.
+Livré : toutes les pages ci-dessus en français, thème bleu, logo Brayano IA, SEO technique, tests.
 
-À venir : pages `/services/[slug]`, `/realisations/[slug]`, `/brayano-ia`, `/formation-ia`, `/a-propos`,
-`/contact` avec formulaire de devis vers WhatsApp, mentions légales et confidentialité, version anglaise.
-D'ici là, la navigation pointe vers les sections de l'accueil et « Demander un devis » ouvre un e-mail.
+À venir : version anglaise. À renseigner quand ils existeront : numéro RCCM / NIU et adresse dans
+`src/pages/mentions-legales.astro`, nom de domaine dans `PUBLIC_SITE_URL`, projet « Petits Jobs Express »
+(`verified: false` dans `src/data/projects.ts`).

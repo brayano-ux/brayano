@@ -1,0 +1,28 @@
+---
+import type { Metric } from '@/data/projects';
+interface Props { metrics: Metric[]; source?: string }
+const { metrics, source } = Astro.props;
+---
+
+<div class="metrics">
+  <dl>
+    {metrics.map((metric) => (
+      <div>
+        <dt>{metric.label}</dt>
+        <dd>{metric.value}</dd>
+        {metric.note && <dd class="metrics__note">{metric.note}</dd>}
+      </div>
+    ))}
+  </dl>
+  {source && <p class="metrics__source">Source : {source}</p>}
+</div>
+
+<style>
+  .metrics { display: grid; gap: var(--space-4); }
+  dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr)); gap: var(--space-5) var(--space-4); margin: 0; }
+  dl > div { display: flex; flex-direction: column; gap: 0.25rem; }
+  dt { order: 2; font-size: 0.82rem; color: var(--text-muted); }
+  dd { margin: 0; font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .metrics__note { order: 3; font-family: var(--font-body); font-size: 0.76rem; font-weight: 400; letter-spacing: 0; line-height: 1.4; color: var(--text-dim); }
+  .metrics__source { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
+</style>

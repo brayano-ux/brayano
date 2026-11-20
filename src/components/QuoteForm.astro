@@ -1,0 +1,254 @@
+---
+import Icon from './Icon.astro';
+import { site } from '@/config/site';
+import { services } from '@/data/services';
+import { whatsappLink } from '@/lib/whatsapp';
+---
+
+<div class="qf" data-quote>
+  <form class="qf__form" novalidate data-quote-form>
+    <p class="qf__legend">Les champs marqués d’un astérisque (<span aria-hidden="true">*</span>) sont nécessaires.</p>
+    <div class="qf__summary" role="alert" tabindex="-1" hidden data-quote-summary></div>
+
+    <div class="qf__row">
+      <div class="field">
+        <label for="q-name">Nom <span aria-hidden="true">*</span></label>
+        <input id="q-name" name="name" type="text" autocomplete="name" required aria-describedby="q-name-err" />
+        <p class="field__error" id="q-name-err" hidden></p>
+      </div>
+      <div class="field">
+        <label for="q-company">Nom de l’entreprise <span class="field__opt">facultatif</span></label>
+        <input id="q-company" name="company" type="text" autocomplete="organization" />
+      </div>
+    </div>
+
+    <div class="qf__row">
+      <div class="field">
+        <label for="q-phone">Téléphone ou WhatsApp <span aria-hidden="true">*</span></label>
+        <input id="q-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="6 XX XX XX XX" aria-describedby="q-phone-hint q-phone-err" />
+        <p class="field__hint" id="q-phone-hint">Ou une adresse e-mail, si vous préférez.</p>
+        <p class="field__error" id="q-phone-err" hidden></p>
+      </div>
+      <div class="field">
+        <label for="q-email">Adresse e-mail <span class="field__opt">facultatif si un numéro est indiqué</span></label>
+        <input id="q-email" name="email" type="email" autocomplete="email" aria-describedby="q-email-err" />
+        <p class="field__error" id="q-email-err" hidden></p>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="q-service">Service recherché <span aria-hidden="true">*</span></label>
+      <select id="q-service" name="service" required aria-describedby="q-service-err">
+        <option value="">Choisir un service</option>
+        {services.map((service) => <option value={service.title} data-slug={service.slug}>{service.title}</option>)}
+        <option value="Brayano IA" data-slug="brayano-ia">Brayano IA</option>
+        <option value="Autre besoin / je ne sais pas encore">Autre besoin / je ne sais pas encore</option>
+      </select>
+      <p class="field__error" id="q-service-err" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="q-description">Description du besoin <span aria-hidden="true">*</span></label>
+      <textarea id="q-description" name="description" rows="5" required aria-describedby="q-description-hint q-description-err"></textarea>
+      <p class="field__hint" id="q-description-hint">Votre activité, ce que vous voulez obtenir, ce qui existe déjà.</p>
+      <p class="field__error" id="q-description-err" hidden></p>
+    </div>
+
+    <div class="qf__row">
+      <div class="field">
+        <label for="q-budget">Budget indicatif <span class="field__opt">facultatif</span></label>
+        <input id="q-budget" name="budget" type="text" placeholder="Exemple : 150 000 FCFA" />
+      </div>
+      <div class="field">
+        <label for="q-deadline">Délai souhaité <span class="field__opt">facultatif</span></label>
+        <input id="q-deadline" name="deadline" type="text" placeholder="Exemple : avant fin janvier" />
+      </div>
+    </div>
+
+    <button class="btn btn--whatsapp qf__submit" type="submit">
+      <Icon name="whatsapp" />
+      Préparer ma demande sur WhatsApp
+    </button>
+    <p class="qf__privacy">
+      Ce formulaire n’enregistre rien : il prépare un message que vous envoyez vous-même depuis WhatsApp ou votre
+      messagerie. <a href="/confidentialite">En savoir plus</a>.
+    </p>
+    <noscript>
+      <p class="qf__noscript">
+        Ce formulaire a besoin de JavaScript. Vous pouvez aussi m’écrire directement
+        <a href={whatsappLink('devis')}>sur WhatsApp</a> ou à <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.
+      </p>
+    </noscript>
+  </form>
+
+  <div class="qf__done" hidden data-quote-done>
+    <h2 tabindex="-1" data-quote-done-title>Votre demande est prête.</h2>
+    <p class="qf__done-lead">
+      <strong>Rien n’a encore été envoyé.</strong> Ouvrez WhatsApp : le message ci-dessous y est déjà écrit, il vous
+      reste à appuyer sur « Envoyer ».
+    </p>
+    <label class="visually-hidden" for="q-recap">Récapitulatif de votre demande</label>
+    <textarea id="q-recap" class="qf__recap" rows="11" readonly data-quote-recap></textarea>
+    <div class="qf__done-actions">
+      <a class="btn btn--whatsapp" href={whatsappLink('devis')} target="_blank" rel="noopener" data-quote-wa data-track="devis" data-track-origin="formulaire-whatsapp">
+        <Icon name="whatsapp" />
+        Ouvrir WhatsApp et envoyer
+      </a>
+      <button class="btn btn--ghost" type="button" data-quote-copy>Copier le message</button>
+      <a class="btn btn--ghost" href={`mailto:${site.contact.email}`} data-quote-mail data-track="devis" data-track-origin="formulaire-email">
+        <Icon name="mail" />
+        Envoyer par e-mail
+      </a>
+    </div>
+    <p class="qf__status" role="status" data-quote-status></p>
+    <button class="qf__edit" type="button" data-quote-edit>Modifier ma demande</button>
+  </div>
+</div>
+
+<style>
+  .qf { padding: clamp(1.25rem, 3vw, 2.25rem); border: 1px solid var(--line-strong); border-radius: var(--radius-l); background: var(--surface); box-shadow: var(--shadow-card); }
+  .qf__form { display: grid; gap: var(--space-5); }
+  .qf__legend { font-size: 0.86rem; color: var(--text-muted); }
+  .qf__row { display: grid; gap: var(--space-5); }
+  @media (min-width: 40rem) { .qf__row { grid-template-columns: 1fr 1fr; } }
+
+  .field { display: grid; gap: 0.45rem; align-content: start; }
+  .field label { font-family: var(--font-display); font-size: 0.9rem; font-weight: 500; }
+  .field__opt { font-family: var(--font-body); font-weight: 400; font-size: 0.8rem; color: var(--text-dim); }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-s);
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 1rem;
+    transition: border-color var(--dur-fast), box-shadow var(--dur-fast);
+  }
+  .field textarea { resize: vertical; min-height: 8rem; line-height: 1.5; }
+  .field input::placeholder { color: var(--text-dim); }
+  .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--text-dim); }
+  .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--cyan); outline-offset: 1px; border-color: var(--cyan); }
+  .field :global([aria-invalid='true']) { border-color: #ff8f8f; }
+  .field__hint { font-size: 0.82rem; color: var(--text-dim); }
+  .field__error { font-size: 0.86rem; color: #ffb0b0; }
+  .field__error::before { content: '⚠ '; }
+
+  .qf__summary { padding: var(--space-4); border: 1px solid #ff8f8f; border-radius: var(--radius-s); background: rgb(255 120 120 / 0.08); font-size: 0.94rem; color: #ffd0d0; }
+  .qf__submit { justify-self: start; }
+  .qf__privacy, .qf__noscript { font-size: 0.84rem; color: var(--text-muted); }
+  .qf__privacy a, .qf__noscript a { color: var(--cyan); text-underline-offset: 4px; }
+
+  .qf__done { display: grid; gap: var(--space-4); }
+  .qf__done h2 { font-size: var(--step-2); }
+  .qf__done-lead { color: var(--text-muted); }
+  .qf__done-lead strong { color: var(--text); }
+  .qf__recap { width: 100%; padding: var(--space-4); border: 1px solid var(--line-strong); border-radius: var(--radius-s); background: var(--bg); color: var(--text); font: inherit; font-size: 0.94rem; line-height: 1.5; resize: vertical; }
+  .qf__done-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
+  .qf__status { min-height: 1.4em; font-size: 0.88rem; color: var(--cyan); }
+  .qf__edit { justify-self: start; padding: 0.5rem 0; border: 0; background: none; color: var(--text-muted); font: inherit; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+  .qf__edit:hover { color: var(--text); }
+  @media (max-width: 30rem) {
+    .qf__submit, .qf__done-actions > * { width: 100%; }
+  }
+</style>
+
+<script>
+  import { buildQuoteMessage, validateQuote, type QuoteInput } from '@/lib/quote';
+  import { whatsappUrl } from '@/lib/whatsapp';
+  import { site } from '@/config/site';
+
+  const root = document.querySelector<HTMLElement>('[data-quote]');
+  const form = root?.querySelector<HTMLFormElement>('[data-quote-form]');
+  const done = root?.querySelector<HTMLElement>('[data-quote-done]');
+
+  if (root && form && done) {
+    const summary = root.querySelector<HTMLElement>('[data-quote-summary]')!;
+    const recap = root.querySelector<HTMLTextAreaElement>('[data-quote-recap]')!;
+    const waLink = root.querySelector<HTMLAnchorElement>('[data-quote-wa]')!;
+    const mailLink = root.querySelector<HTMLAnchorElement>('[data-quote-mail]')!;
+    const status = root.querySelector<HTMLElement>('[data-quote-status]')!;
+    const fields: (keyof QuoteInput)[] = ['name', 'company', 'phone', 'email', 'service', 'description', 'budget', 'deadline'];
+    const control = (name: string) => form.elements.namedItem(name) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+    // Présélection du service depuis un lien « /contact?service=sites-web ».
+    const wanted = new URLSearchParams(location.search).get('service');
+    if (wanted) {
+      const option = form.querySelector<HTMLOptionElement>(`option[data-slug="${CSS.escape(wanted)}"]`);
+      if (option) option.selected = true;
+    }
+
+    const read = (): QuoteInput => Object.fromEntries(fields.map((name) => [name, control(name).value])) as unknown as QuoteInput;
+
+    const showErrors = (errors: Partial<Record<keyof QuoteInput, string>>) => {
+      for (const name of fields) {
+        const errorEl = document.getElementById(`q-${name}-err`);
+        if (!errorEl) continue;
+        const message = errors[name];
+        errorEl.textContent = message ?? '';
+        errorEl.hidden = !message;
+        control(name).setAttribute('aria-invalid', message ? 'true' : 'false');
+      }
+    };
+
+    // Dès qu'un champ en erreur est corrigé, son message disparaît.
+    form.addEventListener('input', (event) => {
+      const target = event.target as HTMLElement;
+      if (target.getAttribute('aria-invalid') !== 'true') return;
+      const name = target.getAttribute('name') as keyof QuoteInput;
+      if (validateQuote(read())[name]) return;
+      target.setAttribute('aria-invalid', 'false');
+      const errorEl = document.getElementById(`q-${name}-err`);
+      if (errorEl) errorEl.hidden = true;
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const input = read();
+      const errors = validateQuote(input);
+      showErrors(errors);
+      const invalid = fields.filter((name) => errors[name]);
+
+      if (invalid.length > 0) {
+        summary.hidden = false;
+        summary.textContent =
+          invalid.length === 1 ? 'Un champ est à corriger avant de continuer.' : `${invalid.length} champs sont à corriger avant de continuer.`;
+        control(invalid[0]).focus();
+        return;
+      }
+
+      summary.hidden = true;
+      const message = buildQuoteMessage(input);
+      const url = whatsappUrl(message);
+      recap.value = message;
+      waLink.href = url;
+      mailLink.href = `mailto:${site.contact.email}?subject=${encodeURIComponent('Demande de devis')}&body=${encodeURIComponent(message)}`;
+      status.textContent = '';
+      form.hidden = true;
+      done.hidden = false;
+      root.querySelector<HTMLElement>('[data-quote-done-title]')?.focus();
+      document.dispatchEvent(new CustomEvent('bs:track', { detail: { event: 'devis', origin: 'formulaire-valide' } }));
+      // Tentative d'ouverture directe ; si le navigateur la bloque, le bouton reste disponible.
+      window.open(url, '_blank', 'noopener');
+    });
+
+    root.querySelector('[data-quote-copy]')?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(recap.value);
+        status.textContent = 'Message copié. Collez-le dans WhatsApp, un SMS ou un e-mail.';
+      } catch {
+        recap.focus();
+        recap.select();
+        status.textContent = 'Le message est sélectionné : copiez-le avec Ctrl + C ou un appui long.';
+      }
+    });
+
+    root.querySelector('[data-quote-edit]')?.addEventListener('click', () => {
+      done.hidden = true;
+      form.hidden = false;
+      control('name').focus();
+    });
+  }
+</script>

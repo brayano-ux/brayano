@@ -1,29 +1,42 @@
 ---
 import Icon from './Icon.astro';
-import { site } from '@/config/site';
+import { site, type WhatsAppIntent } from '@/config/site';
 import { whatsappLink } from '@/lib/whatsapp';
 
-// Jalon 1 : la demande de devis part par e-mail. Elle pointera vers le formulaire de /contact au jalon suivant.
-const quoteHref = `mailto:${site.contact.email}?subject=${encodeURIComponent('Demande de devis')}`;
+interface Props {
+  title?: string;
+  text?: string;
+  intent?: WhatsAppIntent;
+  primaryLabel?: string;
+  /** Slug de service transmis au formulaire de devis pour présélection. */
+  service?: string;
+  origin?: string;
+}
+const {
+  title = 'Parlons de votre prochain projet.',
+  text = 'Vous souhaitez améliorer votre visibilité, automatiser certaines tâches ou développer une solution numérique ? Présentez-moi votre besoin : la première discussion ne vous engage à rien.',
+  intent = 'general',
+  primaryLabel = 'Démarrer sur WhatsApp',
+  service,
+  origin = 'cta-final',
+} = Astro.props;
+const quoteHref = service ? `/contact?service=${service}` : '/contact';
 ---
 
 <section class="section cta" aria-labelledby="cta-titre">
   <div class="container">
     <div class="cta__panel" data-reveal>
       <div class="cta__glow" aria-hidden="true"></div>
-      <h2 id="cta-titre">Parlons de votre prochain projet.</h2>
-      <p class="lead">
-        Vous souhaitez améliorer votre visibilité, automatiser certaines tâches ou développer une solution numérique ?
-        Présentez-nous votre besoin : la première discussion ne vous engage à rien.
-      </p>
+      <h2 id="cta-titre">{title}</h2>
+      <p class="lead">{text}</p>
       <div class="cta__actions">
-        <a class="btn btn--whatsapp" href={whatsappLink('general')} target="_blank" rel="noopener" data-track="whatsapp" data-track-origin="cta-final">
+        <a class="btn btn--whatsapp" href={whatsappLink(intent)} target="_blank" rel="noopener" data-track="whatsapp" data-track-origin={origin}>
           <Icon name="whatsapp" />
-          Démarrer sur WhatsApp
+          {primaryLabel}
         </a>
-        <a class="btn btn--ghost" href={quoteHref} data-track="devis" data-track-origin="cta-final">
-          <Icon name="mail" />
-          Demander un devis par e-mail
+        <a class="btn btn--ghost" href={quoteHref}>
+          Demander un devis
+          <Icon name="arrow" />
         </a>
       </div>
       <p class="cta__contact">{site.contact.phoneDisplay} · {site.contact.email}</p>
@@ -50,7 +63,7 @@ const quoteHref = `mailto:${site.contact.email}?subject=${encodeURIComponent('De
     inset: auto -10% -70% -10%;
     height: 120%;
     z-index: -1;
-    background: radial-gradient(closest-side, rgb(61 134 255 / 0.4), rgb(130 114 255 / 0.12) 55%, transparent 75%);
+    background: radial-gradient(closest-side, rgb(77 147 255 / 0.5), rgb(92 220 255 / 0.12) 55%, transparent 75%);
   }
   .cta__panel .lead { max-width: 40rem; }
   .cta__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-3); margin-top: var(--space-2); }

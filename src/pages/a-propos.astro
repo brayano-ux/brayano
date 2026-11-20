@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import portrait from '@/assets/equipe/brayano.jpg';
+import { site } from '@/config/site';
+import { whatsappLink } from '@/lib/whatsapp';
+
+const principles = [
+  { title: 'Un seul interlocuteur', text: 'Vous parlez à la personne qui conçoit et réalise votre projet. Pas d’intermédiaire, pas de message perdu.' },
+  { title: 'Des devis lisibles', text: 'Ce qui est inclus, ce qui ne l’est pas, et ce qui dépend de vous : tout est écrit avant de commencer.' },
+  { title: 'Pas de promesse en l’air', text: 'Ni ventes garanties, ni première place sur Google. Je m’engage sur le travail fourni, et je mesure ce qui peut l’être.' },
+  { title: 'Des outils que vous maîtrisez', text: 'À la livraison, vous savez utiliser ce qui a été mis en place et vous en gardez les accès.' },
+];
+---
+
+<Base
+  title="À propos · Brayano Service"
+  description={`Brayano Service est l’entreprise individuelle de ${site.founder.fullName}, entrepreneur du numérique à Douala et créateur de Brayano IA.`}
+>
+  <PageHero
+    eyebrow="À propos"
+    title="Un entrepreneur du numérique, à Douala."
+    lead={`Brayano Service est mon entreprise individuelle. Je m’appelle ${site.founder.fullName}, dit ${site.founder.alias}, et j’aide les entreprises à se servir du numérique pour être trouvées, mieux répondre à leurs clients et gagner du temps.`}
+  >
+    <a class="btn btn--whatsapp" href={whatsappLink('general')} target="_blank" rel="noopener" data-track="whatsapp" data-track-origin="a-propos">
+      <Icon name="whatsapp" />
+      Discuter sur WhatsApp
+    </a>
+    <a class="btn btn--ghost" href="/realisations">Voir mes réalisations <Icon name="arrow" /></a>
+    <figure slot="aside" class="portrait">
+      <Image src={portrait} alt={`Portrait de ${site.founder.fullName}`} widths={[320, 480, 640]} sizes="(min-width: 62rem) 24rem, 70vw" loading="eager" />
+      <figcaption><strong>{site.founder.fullName}</strong>{site.founder.role} de {site.name}</figcaption>
+    </figure>
+  </PageHero>
+
+  <section class="section">
+    <div class="container split">
+      <div class="split__head" data-reveal>
+        <p class="eyebrow">L’activité</p>
+        <h2>Ce que je fais</h2>
+      </div>
+      <div class="about__text" data-reveal>
+        <p>
+          Je crée des sites web, je mets en place des campagnes publicitaires sur Facebook et Instagram, je développe des
+          logiciels et j’aide les entreprises à automatiser certaines tâches grâce à l’intelligence artificielle.
+        </p>
+        <p>
+          J’ai aussi conçu et développé <a href="/brayano-ia">Brayano IA</a>, un assistant qui répond aux clients sur
+          WhatsApp pour les commerces et les prestataires. C’est un produit que j’exploite au quotidien : ce que je
+          conseille à mes clients, je l’applique d’abord à mon propre outil.
+        </p>
+        <p>
+          Brayano Service est une petite structure. C’est un choix assumé : vous savez qui travaille sur votre projet, et
+          je ne prends que les missions que je peux mener correctement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Façon de travailler</p>
+        <h2>Quatre engagements simples.</h2>
+      </div>
+      <ul class="tiles tiles--fit">
+        {principles.map((principle, index) => (
+          <li class="tile" data-reveal style={`--i:${index % 2}`}>
+            <h3>{principle.title}</h3>
+            <p>{principle.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="split__head" data-reveal>
+        <p class="eyebrow">Me suivre</p>
+        <h2>Ailleurs sur Internet</h2>
+      </div>
+      <ul class="about__social" data-reveal>
+        {site.social.map((item) => (
+          <li><a href={item.href} target="_blank" rel="noopener me">{item.label} <Icon name="external" /></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .portrait { margin: 0; justify-self: center; width: min(100%, 22rem); border: 1px solid var(--line-strong); border-radius: var(--radius-l); overflow: hidden; background: var(--surface); box-shadow: var(--shadow-float); }
+  .portrait :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
+  .portrait figcaption { display: grid; gap: 0.15rem; padding: var(--space-4); font-size: 0.86rem; color: var(--text-muted); }
+  .portrait strong { font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; color: var(--text); }
+  .about__text { display: grid; gap: var(--space-4); max-width: 42rem; font-size: var(--step-1); line-height: 1.55; color: var(--text-muted); }
+  .about__text a { color: var(--cyan); text-underline-offset: 4px; }
+  .about__social { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .about__social a { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 3.25rem; padding: var(--space-3) var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--surface); text-decoration: none; transition: border-color var(--dur-fast); }
+  .about__social a:hover { border-color: var(--accent); }
+  .about__social :global(svg) { width: 1rem; height: 1rem; color: var(--cyan); flex: none; }
+</style>

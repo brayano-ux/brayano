@@ -39,6 +39,7 @@ export const site = {
   product: {
     name: 'Brayano IA',
     url: 'https://brayanoia.onrender.com',
+    pricingUrl: 'https://brayanoia.onrender.com/#tarifs',
     signupUrl: 'https://brayanoia.onrender.com/app/?inscription',
   },
 } as const;
@@ -61,14 +62,28 @@ export const whatsappMessages = {
 
 export type WhatsAppIntent = keyof typeof whatsappMessages;
 
-/**
- * Navigation principale.
- * Jalon 1 : ancres de la page d'accueil. Elles deviendront des pages dédiées
- * (/services, /realisations, /brayano-ia, /a-propos) au jalon suivant.
- */
+/** Navigation principale (en-tête). */
 export const navigation = [
-  { label: 'Services', href: '/#services' },
-  { label: 'Réalisations', href: '/#realisations' },
-  { label: 'Brayano IA', href: '/#brayano-ia' },
-  { label: 'Méthode', href: '/#methode' },
+  { label: 'Services', href: '/services' },
+  { label: 'Réalisations', href: '/realisations' },
+  { label: 'Brayano IA', href: '/brayano-ia' },
+  { label: 'À propos', href: '/a-propos' },
 ] as const;
+
+/** Liens complémentaires du pied de page. */
+export const footerNavigation = [
+  { label: 'Formation pratique en IA', href: '/formation-ia' },
+  { label: 'Contact et devis', href: '/contact' },
+] as const;
+
+export const legalNavigation = [
+  { label: 'Mentions légales', href: '/mentions-legales' },
+  { label: 'Confidentialité', href: '/confidentialite' },
+] as const;
+
+/** Hébergeur du site, cité dans les mentions légales. */
+export const hosting = {
+  name: 'Vercel Inc.',
+  address: '440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis',
+  url: 'https://vercel.com',
+} as const;

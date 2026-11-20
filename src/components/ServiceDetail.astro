@@ -1,0 +1,143 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from './PageHero.astro';
+import ServiceVisual from './ServiceVisual.astro';
+import ProjectCard from './ProjectCard.astro';
+import CtaBand from './CtaBand.astro';
+import Icon from './Icon.astro';
+import { services, type Service } from '@/data/services';
+import { getProject } from '@/data/projects';
+import { whatsappLink } from '@/lib/whatsapp';
+
+interface Props { service: Service }
+const { service } = Astro.props;
+const related = service.relatedProjects.map((slug) => getProject(slug)).filter((project) => project !== undefined);
+const others = services.filter((item) => item.slug !== service.slug);
+---
+
+<Base title={`${service.title} · Brayano Service`} description={service.summary}>
+  <PageHero eyebrow="Service" title={service.title} lead={service.intro} crumbs={[{ label: 'Services', href: '/services' }]}>
+    <a class="btn btn--whatsapp" href={whatsappLink(service.intent)} target="_blank" rel="noopener" data-track="whatsapp" data-track-origin={`service-${service.slug}`}>
+      <Icon name="whatsapp" />
+      {service.cta}
+    </a>
+    <a class="btn btn--ghost" href={`/contact?service=${service.slug}`}>Demander un devis <Icon name="arrow" /></a>
+    <div slot="aside" class="sd__visual"><ServiceVisual slug={service.slug} /></div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container split">
+      <div class="split__head" data-reveal>
+        <p class="eyebrow">Pour qui</p>
+        <h2>À qui s’adresse ce service</h2>
+        <p class="muted">{service.audience}</p>
+        <p class="sd__benefit">{service.benefit}</p>
+      </div>
+      <div>
+        <h2 class="visually-hidden">Ce que comprend le service</h2>
+        <ul class="tiles">
+          {service.offers.map((offer, index) => (
+            <li class="tile" data-reveal style={`--i:${index % 2}`}>
+              <h3>{offer.title}</h3>
+              <p>{offer.text}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container split">
+      <div class="split__head" data-reveal>
+        <p class="eyebrow">Déroulement</p>
+        <h2>Comment ça se passe</h2>
+      </div>
+      <ol class="numbered" data-reveal>
+        {service.steps.map((step) => (
+          <li>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container split">
+      <div class="split__head" data-reveal>
+        <p class="eyebrow">À savoir</p>
+        <h2>Ce qui est promis, et ce qui ne l’est pas</h2>
+      </div>
+      <div class="note-box" data-reveal>
+        <ul class="checks">
+          {service.notes.map((note) => <li>{note}</li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {related.length > 0 && (
+    <section class="section band" aria-labelledby="liees-titre">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Réalisations</p>
+          <h2 id="liees-titre">Ce service, en pratique</h2>
+        </div>
+        <ul class:list={['sd__related', { 'sd__related--one': related.length === 1 }]}>
+          {related.map((project) => (
+            <li data-reveal><ProjectCard project={project} wide={related.length === 1} /></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section sd__others" aria-labelledby="autres-titre">
+    <div class="container">
+      <h2 id="autres-titre" class="sd__others-title">Les autres services</h2>
+      <ul class="sd__others-list">
+        {others.map((item) => (
+          <li><a href={item.path}>{item.title} <Icon name="arrow" /></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand intent={service.intent} primaryLabel={service.cta} service={service.slug} origin={`cta-${service.slug}`} />
+</Base>
+
+<style>
+  .sd__visual {
+    padding: var(--space-5);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-l);
+    background: radial-gradient(20rem 10rem at 50% 110%, rgb(77 147 255 / 0.35), transparent 70%), var(--bg);
+    box-shadow: var(--shadow-float);
+  }
+  .sd__benefit { padding-top: var(--space-4); border-top: 1px solid var(--line); font-size: var(--step-1); line-height: 1.4; color: var(--text); }
+  .sd__related { display: grid; gap: var(--space-5); }
+  @media (min-width: 62rem) {
+    .sd__related { grid-template-columns: 1fr 1fr; }
+    .sd__related--one { grid-template-columns: 1fr; }
+  }
+  .sd__others { padding-bottom: 0; }
+  .sd__others-title { font-size: var(--step-1); margin-bottom: var(--space-4); }
+  .sd__others-list { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .sd__others-list a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-pill);
+    font-size: 0.92rem;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: color var(--dur-fast), border-color var(--dur-fast);
+  }
+  .sd__others-list a:hover { color: var(--text); border-color: var(--accent); }
+  .sd__others-list :global(svg) { width: 0.95rem; height: 0.95rem; color: var(--cyan); }
+</style>

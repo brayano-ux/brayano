@@ -1,19 +1,20 @@
 /* Jetons de design : toute couleur, tout espacement et toute durée du site se règle ici. */
 :root {
   /* Couleurs */
-  --bg: #060a13;
-  --bg-raised: #0a101d;
-  --surface: #0e1525;
-  --surface-2: #131c30;
-  --line: rgb(150 172 255 / 0.11);
-  --line-strong: rgb(150 172 255 / 0.22);
+  --bg: #061433;
+  --bg-raised: #08193f;
+  --surface: #0c214d;
+  --surface-2: #11295c;
+  --line: rgb(160 188 255 / 0.15);
+  --line-strong: rgb(160 188 255 / 0.3);
   --text: #eef1f7;
-  --text-muted: #a6b0c6;
-  --text-dim: #7d89a3;
-  --accent: #3d86ff;
-  --accent-strong: #2a6bf0;
-  --cyan: #45d6ff;
-  --violet: #8272ff;
+  --text-muted: #b9c5e2;
+  --text-dim: #93a3cb;
+  --accent: #4d93ff;
+  --accent-strong: #2563eb;
+  --accent-deep: #1d4fd8;
+  --cyan: #5cdcff;
+  --violet: #8f82ff;
   --whatsapp: #25d366;
   --whatsapp-ink: #03170b;
   --on-accent: #ffffff;
@@ -47,8 +48,8 @@
   --radius-l: 1.4rem;
   --radius-pill: 999px;
   --shadow-card: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 24px 48px -28px rgb(0 0 0 / 0.8);
-  --shadow-float: 0 30px 60px -30px rgb(0 8 30 / 0.9), 0 0 0 1px var(--line);
-  --glow-accent: 0 12px 34px -12px rgb(61 134 255 / 0.65);
+  --shadow-float: 0 30px 60px -30px rgb(0 6 28 / 0.85), 0 0 0 1px var(--line);
+  --glow-accent: 0 12px 34px -12px rgb(37 99 235 / 0.8);
 
   /* Mouvement */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

@@ -1,0 +1,150 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import BrowserFrame from '@/components/BrowserFrame.astro';
+import Metrics from '@/components/Metrics.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { publishedProjects, projectPath, type Project } from '@/data/projects';
+import type { WhatsAppIntent } from '@/config/site';
+
+export function getStaticPaths() {
+  return publishedProjects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+interface Props { project: Project }
+const { project } = Astro.props;
+
+const intents: Record<Project['type'], WhatsAppIntent> = { site: 'site', campagne: 'publicite', produit: 'brayanoIa' };
+const ctaLabels: Record<Project['type'], string> = {
+  site: 'Parler de mon site web',
+  campagne: 'Discuter de ma campagne',
+  produit: 'Découvrir Brayano IA',
+};
+const others = publishedProjects.filter((item) => item.slug !== project.slug);
+---
+
+<Base title={`${project.name} · Étude de cas · Brayano Service`} description={project.summary}>
+  <PageHero eyebrow={project.kind} title={project.name} lead={project.summary} crumbs={[{ label: 'Réalisations', href: '/realisations' }]}>
+    {project.url && (
+      <a class="btn btn--primary" href={project.url} target="_blank" rel="noopener" data-track="realisation" data-track-origin={project.slug}>
+        Ouvrir le site <Icon name="external" />
+      </a>
+    )}
+    {project.type === 'produit' && <a class="btn btn--ghost" href="/brayano-ia">Présentation complète <Icon name="arrow" /></a>}
+  </PageHero>
+
+  <section class="section cs">
+    <div class="container">
+      {project.image && (
+        <figure class="cs__shot" data-reveal>
+          <BrowserFrame image={project.image} url={project.url} sizes="(min-width: 76rem) 76rem, 94vw" eager full />
+        </figure>
+      )}
+
+      {project.metrics.length > 0 && (
+        <div class="cs__metrics" data-reveal>
+          <h2>Résultats mesurés</h2>
+          <Metrics metrics={project.metrics} source={project.metricsSource} />
+        </div>
+      )}
+
+      <div class="cs__grid">
+        <dl class="cs__facts" data-reveal>
+          <div><dt>Secteur</dt><dd>{project.sector}</dd></div>
+          <div><dt>Type</dt><dd>{project.kind}</dd></div>
+          <div><dt>Compétences</dt><dd>{project.skills.join(', ')}</dd></div>
+          <div><dt>Outils</dt><dd>{project.tools.join(', ')}</dd></div>
+        </dl>
+
+        <div class="cs__story">
+          <div data-reveal>
+            <h2>Le besoin</h2>
+            <p>{project.need}</p>
+          </div>
+          <div data-reveal>
+            <h2>L’objectif</h2>
+            <p>{project.objective}</p>
+          </div>
+          <div data-reveal>
+            <h2>La solution</h2>
+            {project.solution.map((paragraph) => <p>{paragraph}</p>)}
+          </div>
+
+          {project.gallery.map((image) => (
+            <figure class="cs__shot" data-reveal>
+              <BrowserFrame image={image} url={project.url} sizes="(min-width: 76rem) 48rem, 94vw" full />
+              {image.caption && <figcaption>{image.caption}</figcaption>}
+            </figure>
+          ))}
+
+          {project.metrics.length === 0 && (
+            <div data-reveal>
+              <h2>Résultats</h2>
+              <p>Aucun résultat chiffré n’est publié pour ce projet : seuls des chiffres documentés figurent sur ce site.</p>
+            </div>
+          )}
+
+          <div class="note-box" data-reveal>
+            <h2>Enseignements et limites</h2>
+            <ul class="checks">
+              {project.lessons.map((lesson) => <li>{lesson}</li>)}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band" aria-labelledby="autres-titre">
+    <div class="container">
+      <h2 id="autres-titre" class="cs__others-title">Autres réalisations</h2>
+      <ul class="cs__others">
+        {others.map((item) => (
+          <li>
+            <a href={projectPath(item)}>
+              <span class="tag">{item.kind}</span>
+              <strong>{item.name}</strong>
+              <Icon name="arrow" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Un projet du même type ?"
+    text="Dites-moi où vous en êtes et ce que vous voulez obtenir. Je vous réponds avec une proposition adaptée à votre activité."
+    intent={intents[project.type]}
+    primaryLabel={project.type === 'produit' ? 'Poser une question sur WhatsApp' : ctaLabels[project.type]}
+    origin={`cta-${project.slug}`}
+  />
+</Base>
+
+<style>
+  .cs__shot { margin: 0; border: 1px solid var(--line-strong); border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-float); }
+  .cs__shot figcaption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); background: var(--surface); font-size: 0.84rem; color: var(--text-muted); }
+  .cs__metrics { display: grid; gap: var(--space-5); padding: var(--space-6) var(--space-5); border: 1px solid var(--line-strong); border-radius: var(--radius-l); background: linear-gradient(165deg, var(--surface-2), var(--surface)); }
+  .cs__metrics h2 { font-size: var(--step-1); }
+  .cs__grid { display: grid; gap: var(--space-7); margin-top: var(--space-8); }
+  .cs__facts { display: grid; gap: 0; margin: 0; align-content: start; }
+  .cs__facts > div { display: grid; gap: 0.2rem; padding-block: var(--space-4); border-top: 1px solid var(--line); }
+  .cs__facts > div:first-child { border-top: 0; padding-top: 0; }
+  .cs__facts dt { font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); }
+  .cs__facts dd { margin: 0; font-size: 0.96rem; color: var(--text); }
+  .cs__story { display: grid; gap: var(--space-7); max-width: 48rem; }
+  .cs__story > div { display: grid; gap: var(--space-3); }
+  .cs__story h2 { font-size: var(--step-2); }
+  .cs__story p { color: var(--text-muted); }
+  .cs__others-title { font-size: var(--step-1); margin-bottom: var(--space-4); }
+  .cs__others { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+  .cs__others a { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--surface); text-decoration: none; transition: border-color var(--dur-fast); }
+  .cs__others a:hover { border-color: var(--accent); }
+  .cs__others strong { flex: 1; font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; }
+  .cs__others :global(svg) { width: 1rem; height: 1rem; color: var(--cyan); flex: none; }
+  @media (min-width: 58rem) {
+    .cs__grid { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.7fr); gap: var(--space-8); }
+    .cs__facts { position: sticky; top: calc(var(--header-h) + 2rem); }
+  }
+</style>

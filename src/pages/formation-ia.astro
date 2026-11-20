@@ -1,0 +1,9 @@
+---
+import ServiceDetail from '@/components/ServiceDetail.astro';
+import { getService } from '@/data/services';
+
+const service = getService('formation-ia');
+if (!service) throw new Error('Service « formation-ia » introuvable dans src/data/services.ts');
+---
+
+<ServiceDetail service={service} />

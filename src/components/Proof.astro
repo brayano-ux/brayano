@@ -2,33 +2,34 @@
 import { Image } from 'astro:assets';
 import portrait from '@/assets/equipe/brayano.jpg';
 import { site } from '@/config/site';
-import { publishedProjects } from '@/data/projects';
-import { campaigns } from '@/data/campaigns';
+import { publishedProjects, getProject, projectPath } from '@/data/projects';
 
-const campaign = campaigns[0];
+const sites = publishedProjects.filter((project) => project.url);
+const campaign = getProject('campagne-pure-molecule');
 ---
 
 <section class="proof" aria-label="Éléments de preuve">
   <div class="container">
     <ul class="proof__grid">
       <li data-reveal style="--i:0">
-        <p class="proof__value">{publishedProjects.length}</p>
+        <p class="proof__value">{sites.length}</p>
         <p class="proof__label">réalisations en ligne, que vous pouvez ouvrir et tester vous-même.</p>
-        <a class="proof__link" href="#realisations">Voir les réalisations</a>
+        <a class="proof__link" href="/realisations">Voir les réalisations</a>
       </li>
       {campaign && (
         <li data-reveal style="--i:1">
-          <p class="proof__value">{campaign.conversations}</p>
+          <p class="proof__value">{campaign.metrics[0]?.value}</p>
           <p class="proof__label">
-            conversations WhatsApp démarrées en 30 jours par une campagne Meta, à {campaign.costPerConversation} l’unité.
+            conversations WhatsApp démarrées en 30 jours par une campagne Meta, à {campaign.metrics[1]?.value} l’unité.
           </p>
-          <p class="proof__note">{campaign.source} · {campaign.period}. {campaign.caveat}</p>
+          <p class="proof__note">Une conversation démarrée est une prise de contact, pas une vente.</p>
+          <a class="proof__link" href={projectPath(campaign)}>Lire l’étude de cas</a>
         </li>
       )}
       <li data-reveal style="--i:2">
         <p class="proof__value proof__value--text">Brayano IA</p>
-        <p class="proof__label">Notre propre produit, conçu, développé et exploité par nos soins.</p>
-        <a class="proof__link" href="#brayano-ia">Découvrir le produit</a>
+        <p class="proof__label">Mon propre produit : conçu, développé et exploité par mes soins.</p>
+        <a class="proof__link" href="/brayano-ia">Découvrir le produit</a>
       </li>
       <li class="proof__person" data-reveal style="--i:3">
         <Image src={portrait} alt={`Portrait de ${site.founder.fullName}`} width={72} height={72} densities={[1, 2]} fit="cover" position="top" loading="eager" />

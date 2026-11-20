@@ -1,34 +1,22 @@
 ---
 /**
- * Proposition de logo typographique pour Brayano Service.
- * Création originale : à remplacer si un logo officiel est fourni.
+ * Logo de Brayano Service : le symbole officiel de Brayano IA (choix du fondateur)
+ * accompagné du nom de l'entreprise.
  */
+import { Image } from 'astro:assets';
+import mark from '@/assets/marque/logo-mark.png';
 import { site } from '@/config/site';
-interface Props { id?: string }
-const { id = 'logo' } = Astro.props;
 ---
 
 <span class="logo">
-  <svg class="logo__mark" viewBox="0 0 36 36" aria-hidden="true">
-    <defs>
-      <linearGradient id={`${id}-g`} x1="4" y1="2" x2="32" y2="34" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#45d6ff" />
-        <stop offset="0.55" stop-color="#3d86ff" />
-        <stop offset="1" stop-color="#5a5cf0" />
-      </linearGradient>
-    </defs>
-    <rect width="36" height="36" rx="10" fill={`url(#${id}-g)`} />
-    <path d="M12.5 9.5h7a4.25 4.25 0 0 1 0 8.5h-7m0 0h8.25a4.25 4.25 0 0 1 0 8.5H12.5Z" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round" />
-    <path d="M12.5 9.5v17" stroke="#fff" stroke-width="2.6" stroke-linecap="round" />
-    <circle cx="27.5" cy="9" r="2" fill="#fff" />
-  </svg>
+  <Image class="logo__mark" src={mark} alt="" width={38} height={36} densities={[1, 2, 3]} loading="eager" />
   <span class="logo__text">Brayano<span class="logo__sub">Service</span></span>
   <span class="visually-hidden"> — {site.name}, accueil</span>
 </span>
 
 <style>
-  .logo { display: inline-flex; align-items: center; gap: 0.65rem; }
-  .logo__mark { width: 2.1rem; height: 2.1rem; flex: none; }
+  .logo { display: inline-flex; align-items: center; gap: 0.6rem; }
+  .logo :global(.logo__mark) { width: 2.35rem; height: auto; flex: none; }
   .logo__text {
     font-family: var(--font-display);
     font-weight: 700;

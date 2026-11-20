@@ -1,0 +1,79 @@
+---
+interface Crumb { label: string; href: string }
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  crumbs?: Crumb[];
+}
+const { eyebrow, title, lead, crumbs = [] } = Astro.props;
+---
+
+<section class="ph">
+  <div class="ph__bg" aria-hidden="true"></div>
+  <div class:list={['container', 'ph__grid', { 'ph__grid--aside': Astro.slots.has('aside') }]}>
+    <div class="ph__copy">
+      {crumbs.length > 0 && (
+        <nav aria-label="Fil d’Ariane" class="ph__crumbs">
+          <ol>
+            <li><a href="/">Accueil</a></li>
+            {crumbs.map((crumb) => <li><a href={crumb.href}>{crumb.label}</a></li>)}
+          </ol>
+        </nav>
+      )}
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {lead && <p class="lead">{lead}</p>}
+      {Astro.slots.has('default') && <div class="ph__actions"><slot /></div>}
+    </div>
+    {Astro.slots.has('aside') && <div class="ph__aside"><slot name="aside" /></div>}
+  </div>
+</section>
+
+<style>
+  .ph {
+    position: relative;
+    margin-top: calc(-1 * var(--header-h));
+    padding-top: calc(var(--header-h) + clamp(2.5rem, 1.5rem + 4vw, 5rem));
+    padding-bottom: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+    border-bottom: 1px solid var(--line);
+    overflow: clip;
+  }
+  .ph__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(54rem 30rem at 85% 0%, rgb(61 134 255 / 0.36), transparent 62%),
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 4.5rem,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 4.5rem 100%;
+    mask-image: linear-gradient(to bottom, #000 40%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  }
+  .ph__grid { position: relative; display: grid; gap: var(--space-7); align-items: center; }
+  .ph__copy { display: grid; gap: var(--space-4); justify-items: start; max-width: 48rem; }
+  .ph h1 { font-size: clamp(2rem, 1.4rem + 2.8vw, 3.6rem); }
+  .ph__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-3); }
+  .ph__crumbs ol { display: flex; flex-wrap: wrap; gap: 0.2rem 0.5rem; font-size: 0.84rem; color: var(--text-dim); }
+  .ph__crumbs li + li::before { content: '/'; margin-right: 0.5rem; }
+  .ph__crumbs a { display: inline-block; padding: 0.35rem 0; color: var(--text-muted); text-underline-offset: 4px; }
+  .ph__crumbs a:hover { color: var(--text); }
+
+  @media (max-width: 30rem) {
+    .ph__actions { width: 100%; }
+    .ph__actions :global(.btn) { flex: 1 1 100%; }
+  }
+  @media (min-width: 62rem) {
+    .ph__grid--aside { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .ph__copy > *, .ph__aside { animation: ph-in 800ms var(--ease-out) both; }
+    .ph__copy > :nth-child(2) { animation-delay: 70ms; }
+    .ph__copy > :nth-child(3) { animation-delay: 140ms; }
+    .ph__copy > :nth-child(4), .ph__aside { animation-delay: 210ms; }
+    .ph__copy > :nth-child(5) { animation-delay: 280ms; }
+  }
+  @keyframes ph-in {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: none; }
+  }
+</style>

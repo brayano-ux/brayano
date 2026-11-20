@@ -1,8 +1,8 @@
 ---
 import Icon from './Icon.astro';
 import { site } from '@/config/site';
+import ChatDemo from './ChatDemo.astro';
 import { brayanoIa } from '@/data/brayanoIa';
-const { demo } = brayanoIa;
 ---
 
 <section class="section ia" id="brayano-ia" aria-labelledby="ia-titre">
@@ -10,7 +10,7 @@ const { demo } = brayanoIa;
   <div class="container ia__grid">
     <div class="ia__copy">
       <div class="section-head" data-reveal>
-        <p class="eyebrow">Brayano IA · Notre produit</p>
+        <p class="eyebrow">Brayano IA · Produit maison</p>
         <h2 id="ia-titre">{brayanoIa.headline}</h2>
         <p class="lead">{brayanoIa.intro}</p>
       </div>
@@ -28,9 +28,9 @@ const { demo } = brayanoIa;
       </ul>
 
       <div class="ia__actions" data-reveal>
-        <a class="btn btn--primary" href={site.product.url} target="_blank" rel="noopener" data-track="brayano-ia" data-track-origin="decouvrir">
+        <a class="btn btn--primary" href="/brayano-ia">
           Découvrir Brayano IA
-          <Icon name="external" />
+          <Icon name="arrow" />
         </a>
         <a class="btn btn--ghost" href={site.product.signupUrl} target="_blank" rel="noopener" data-track="brayano-ia" data-track-origin="essai">
           Essayer gratuitement
@@ -41,30 +41,7 @@ const { demo } = brayanoIa;
       </ul>
     </div>
 
-    <figure class="phone" data-inview>
-      <div class="phone__screen">
-        <div class="phone__head">
-          <span class="phone__avatar" aria-hidden="true">BD</span>
-          <div>
-            <p class="phone__name">{demo.business}</p>
-            <p class="phone__status">assistant en ligne</p>
-          </div>
-        </div>
-        <ol class="phone__thread">
-          {demo.messages.map((message, index) => (
-            <li class:list={['msg', `msg--${message.from}`]} style={`--n:${index}`}>
-              <span class="visually-hidden">{message.from === 'client' ? 'Client : ' : 'Assistant : '}</span>
-              {message.text}
-              <time>{message.time}</time>
-            </li>
-          ))}
-        </ol>
-        <ul class="phone__events" style={`--n:${demo.messages.length}`}>
-          {demo.events.map((event) => <li><Icon name="check" />{event}</li>)}
-        </ul>
-      </div>
-      <figcaption class="demo-label">Simulation · boutique et échanges fictifs</figcaption>
-    </figure>
+    <ChatDemo />
   </div>
 </section>
 
@@ -75,7 +52,7 @@ const { demo } = brayanoIa;
     inset: 0;
     background:
       radial-gradient(44rem 30rem at 88% 40%, rgb(37 211 102 / 0.08), transparent 65%),
-      radial-gradient(40rem 28rem at 70% 60%, rgb(61 134 255 / 0.16), transparent 65%);
+      radial-gradient(40rem 28rem at 70% 60%, rgb(61 134 255 / 0.3), transparent 65%);
   }
   .ia__grid { position: relative; display: grid; gap: clamp(3rem, 6vw, 5rem); align-items: center; }
   .ia .section-head { margin-bottom: var(--space-6); }
@@ -88,42 +65,6 @@ const { demo } = brayanoIa;
   .ia__check :global(svg) { width: 0.95rem; height: 0.95rem; }
   .ia__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-7); }
   .ia__facts { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-5); }
-
-  .phone { margin: 0; justify-self: center; width: min(100%, 22.5rem); display: grid; gap: var(--space-4); justify-items: center; }
-  .phone__screen {
-    width: 100%;
-    padding: 0.55rem;
-    border-radius: 2.1rem;
-    background: #0b1220;
-    border: 1px solid var(--line-strong);
-    box-shadow: var(--shadow-float), 0 0 80px -20px rgb(61 134 255 / 0.5);
-  }
-  .phone__head { display: flex; align-items: center; gap: 0.7rem; padding: 0.85rem 0.9rem; border-radius: 1.6rem 1.6rem 0 0; background: #0f5c48; }
-  .phone__avatar { display: grid; place-items: center; width: 2.3rem; height: 2.3rem; border-radius: 50%; background: rgb(255 255 255 / 0.16); font-family: var(--font-display); font-size: 0.78rem; font-weight: 600; }
-  .phone__name { font-family: var(--font-display); font-size: 0.92rem; font-weight: 600; line-height: 1.2; }
-  .phone__status { font-size: 0.74rem; color: rgb(255 255 255 / 0.8); }
-  .phone__thread { display: grid; gap: 0.5rem; padding: 1rem 0.75rem 0.5rem; background: #0a1019; min-height: 17rem; align-content: start; }
-  .msg { max-width: 84%; padding: 0.55rem 0.75rem 0.4rem; border-radius: 0.95rem; font-size: 0.88rem; line-height: 1.4; }
-  .msg time { display: block; margin-top: 0.15rem; font-size: 0.68rem; text-align: right; color: var(--text-muted); }
-  .msg--client { justify-self: start; background: #1a2333; border-bottom-left-radius: 0.25rem; }
-  .msg--agent { justify-self: end; background: #0f4a3a; border-bottom-right-radius: 0.25rem; }
-  .msg--agent time { color: rgb(255 255 255 / 0.6); }
-  .phone__events { display: grid; gap: 0.35rem; padding: 0.5rem 0.75rem 1rem; border-radius: 0 0 1.6rem 1.6rem; background: #0a1019; }
-  .phone__events li { display: flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.65rem; border: 1px dashed rgb(69 214 255 / 0.35); border-radius: 0.6rem; font-size: 0.76rem; color: var(--cyan); }
-  .phone__events :global(svg) { width: 0.9rem; height: 0.9rem; flex: none; }
-
-  /* Les bulles arrivent l'une après l'autre quand le téléphone entre à l'écran. */
-  @media (prefers-reduced-motion: no-preference) {
-    :global(.js) .phone .msg,
-    :global(.js) .phone .phone__events { opacity: 0; transform: translateY(10px) scale(0.98); }
-    :global(.js) .phone.is-in .msg,
-    :global(.js) .phone.is-in .phone__events {
-      opacity: 1;
-      transform: none;
-      transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
-      transition-delay: calc(var(--n) * 750ms + 300ms);
-    }
-  }
 
   @media (min-width: 60rem) {
     .ia__grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); }

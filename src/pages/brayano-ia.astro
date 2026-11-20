@@ -1,0 +1,151 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import ChatDemo from '@/components/ChatDemo.astro';
+import BrowserFrame from '@/components/BrowserFrame.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import Icon from '@/components/Icon.astro';
+import { site } from '@/config/site';
+import { brayanoIa } from '@/data/brayanoIa';
+import { getProject } from '@/data/projects';
+
+const dashboard = getProject('brayano-ia')?.gallery[0];
+---
+
+<Base
+  title="Brayano IA · Assistant IA pour WhatsApp Business"
+  description="Brayano IA répond à vos clients sur votre numéro WhatsApp, présente vos produits, enregistre commandes et rendez-vous, et vous repasse la main quand il le faut."
+>
+  <PageHero eyebrow="Brayano IA · Produit maison" title="Un assistant qui répond à vos clients sur WhatsApp, même quand vous êtes occupé." lead={brayanoIa.intro}>
+    <a class="btn btn--primary" href={site.product.signupUrl} target="_blank" rel="noopener" data-track="brayano-ia" data-track-origin="essai-hero">
+      Essayer gratuitement <Icon name="external" />
+    </a>
+    <a class="btn btn--ghost" href={site.product.url} target="_blank" rel="noopener" data-track="brayano-ia" data-track-origin="site-hero">
+      Voir le site du produit
+    </a>
+    <ul class="ia__facts" aria-label="En bref">
+      {brayanoIa.facts.map((fact) => <li class="tag">{fact}</li>)}
+    </ul>
+    <ChatDemo slot="aside" />
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Le problème</p>
+        <h2>Vendre sur WhatsApp ne s’arrête jamais.</h2>
+      </div>
+      <ul class="tiles tiles--fit">
+        {brayanoIa.problems.map((problem, index) => (
+          <li class="tile" data-reveal style={`--i:${index}`}>
+            <h3>{problem.title}</h3>
+            <p>{problem.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section band">
+    <div class="container split">
+      <div class="split__head" data-reveal>
+        <p class="eyebrow">Mise en route</p>
+        <h2>Prêt en trois étapes</h2>
+        <p class="muted">Si vous savez utiliser WhatsApp, vous savez utiliser Brayano IA.</p>
+      </div>
+      <ol class="numbered" data-reveal>
+        {brayanoIa.setup.map((step) => (
+          <li>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="fonctions-titre">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Fonctionnalités</p>
+        <h2 id="fonctions-titre">Ce que l’assistant fait, précisément.</h2>
+        <p class="lead">Les fonctions ci-dessous existent dans le produit. Certaines dépendent du forfait choisi.</p>
+      </div>
+      <ul class="groups">
+        {brayanoIa.featureGroups.map((group, index) => (
+          <li class="group" data-reveal style={`--i:${index % 2}`}>
+            <h3>{group.title}</h3>
+            <ul class="checks">
+              {group.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {dashboard && (
+    <section class="section band">
+      <div class="container">
+        <div class="section-head" data-reveal>
+          <p class="eyebrow">Tableau de bord</p>
+          <h2>Tout ce qui se passe, au même endroit.</h2>
+          <p class="lead">Conversations, commandes, rendez-vous et statistiques, sur téléphone ou sur ordinateur.</p>
+        </div>
+        <figure class="dash" data-reveal>
+          <BrowserFrame image={dashboard} url={site.product.url} sizes="(min-width: 76rem) 76rem, 94vw" full />
+          <figcaption>{dashboard.caption}</figcaption>
+        </figure>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container split">
+      <div class="split__head" data-reveal>
+        <p class="eyebrow">Pour qui</p>
+        <h2>Pour ceux qui vendent ou prennent des rendez-vous sur WhatsApp</h2>
+        <ul class="ia__audiences">
+          {brayanoIa.audiences.map((audience) => <li class="tag">{audience}</li>)}
+        </ul>
+      </div>
+      <div class="note-box" data-reveal>
+        <h3>Vous gardez la main</h3>
+        <ul class="checks">
+          <li>Vous pouvez répondre vous-même à tout moment : l’assistant se met en pause pour ce client.</li>
+          <li>Un paiement n’est jamais confirmé par l’IA : la capture vous est signalée, vous validez.</li>
+          <li>Quand l’assistant n’est pas sûr, il vous passe la conversation au lieu d’improviser.</li>
+          <li>Les forfaits et leurs tarifs sont publiés sur le site du produit et se règlent par Mobile Money.</li>
+        </ul>
+        <p>
+          <a class="link-arrow" href={site.product.pricingUrl} target="_blank" rel="noopener">Voir les forfaits sur le site du produit <Icon name="external" /></a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ia__legal">
+    <div class="container"><p>{brayanoIa.disclaimer}</p></div>
+  </section>
+
+  <CtaBand
+    title="Envie de l’essayer sur votre WhatsApp ?"
+    text="L’essai est gratuit et sans carte bancaire. Si vous préférez être accompagné pour la mise en route, écrivez-moi : on la fait ensemble."
+    intent="brayanoIa"
+    primaryLabel="Poser une question sur WhatsApp"
+    service="brayano-ia"
+    origin="cta-brayano-ia"
+  />
+</Base>
+
+<style>
+  .ia__facts { display: flex; flex-wrap: wrap; gap: var(--space-2); width: 100%; margin-top: var(--space-2); }
+  .groups { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
+  .group { display: grid; gap: var(--space-4); align-content: start; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius-l); background: linear-gradient(170deg, var(--surface), var(--bg-raised)); }
+  .group h3 { font-size: var(--step-1); }
+  .group :global(.checks) { font-size: 0.95rem; }
+  .dash { margin: 0; border: 1px solid var(--line-strong); border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-float); }
+  .dash figcaption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); background: var(--surface); font-size: 0.84rem; color: var(--text-muted); }
+  .ia__audiences { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+  .ia__legal p { max-width: 46rem; font-size: 0.82rem; color: var(--text-dim); }
+</style>

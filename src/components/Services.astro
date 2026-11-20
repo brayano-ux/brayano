@@ -2,7 +2,6 @@
 import Icon from './Icon.astro';
 import ServiceVisual from './ServiceVisual.astro';
 import { services } from '@/data/services';
-import { whatsappLink } from '@/lib/whatsapp';
 ---
 
 <section class="section services" id="services" aria-labelledby="services-titre">
@@ -24,8 +23,8 @@ import { whatsappLink } from '@/lib/whatsapp';
           <h3>{service.title}</h3>
           <p class="muted">{service.summary}</p>
           <p class="card__benefit">{service.benefit}</p>
-          <a class="link-arrow card__cta" href={whatsappLink(service.intent)} target="_blank" rel="noopener" data-track="whatsapp" data-track-origin={`service-${service.slug}`}>
-            {service.cta}
+          <a class="link-arrow card__cta" href={service.path}>
+            Découvrir ce service<span class="visually-hidden"> : {service.title}</span>
             <Icon name="arrow" />
           </a>
         </li>
@@ -45,17 +44,18 @@ import { whatsappLink } from '@/lib/whatsapp';
     border: 1px solid var(--line);
     border-radius: var(--radius-l);
     background: linear-gradient(170deg, var(--surface), var(--bg-raised));
+    height: 100%;
     box-shadow: var(--shadow-card);
     transition: border-color var(--dur), transform var(--dur) var(--ease-out), opacity var(--dur-slow) var(--ease-out);
   }
   .card:hover,
-  .card:focus-within { border-color: rgb(61 134 255 / 0.55); }
+  .card:focus-within { border-color: rgb(77 147 255 / 0.65); }
   .card__visual {
     margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) var(--space-2);
     padding: var(--space-3);
     border-radius: var(--radius-m);
     background:
-      radial-gradient(14rem 7rem at 50% 110%, rgb(61 134 255 / 0.16), transparent 70%),
+      radial-gradient(14rem 7rem at 50% 110%, rgb(77 147 255 / 0.3), transparent 70%),
       var(--bg);
     border: 1px solid var(--line);
   }

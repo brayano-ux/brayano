@@ -1,0 +1,68 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import { site, hosting } from '@/config/site';
+---
+
+<Base title="Mentions légales · Brayano Service" description="Éditeur, responsable de la publication, hébergeur et conditions d’utilisation du site de Brayano Service.">
+  <PageHero eyebrow="Informations légales" title="Mentions légales" />
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Éditeur du site</h2>
+      <p>
+        Ce site est édité par <strong>{site.name}</strong>, {site.legalForm.toLowerCase()} exploitée par
+        <strong>{site.founder.fullName}</strong>, entrepreneur dans le numérique, établi à {site.city}, {site.country}.
+      </p>
+      <ul>
+        <li>Responsable de la publication : {site.founder.fullName}</li>
+        <li>Téléphone et WhatsApp : <a href={`tel:+${site.contact.phoneCountryCode}${site.contact.phoneLocal}`}>{site.contact.phoneDisplay}</a></li>
+        <li>E-mail : <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
+      </ul>
+
+      <h2>Hébergement</h2>
+      <p>
+        Le site est hébergé par {hosting.name}, {hosting.address} —
+        <a href={hosting.url} target="_blank" rel="noopener">vercel.com</a>.
+      </p>
+
+      <h2>Propriété intellectuelle</h2>
+      <p>
+        Les textes, la mise en page, les illustrations et le code de ce site sont la propriété de {site.name}, sauf
+        mention contraire. Toute reproduction, même partielle, nécessite un accord écrit préalable.
+      </p>
+      <p>
+        Les captures d’écran présentées dans les réalisations montrent des sites et des produits conçus par {site.name}.
+        Les noms, logos et contenus qui y figurent appartiennent à leurs propriétaires respectifs.
+      </p>
+
+      <h2>Marques citées</h2>
+      <p>
+        WhatsApp, Facebook, Instagram et Meta sont des marques de Meta Platforms, Inc. Google et Google Business Profile
+        sont des marques de Google LLC. {site.name} et Brayano IA sont des services indépendants : ils ne sont ni
+        affiliés à ces sociétés, ni approuvés par elles.
+      </p>
+
+      <h2>Informations présentées</h2>
+      <p>
+        Les services décrits sur ce site le sont à titre d’information et ne constituent pas une offre contractuelle :
+        seul un devis accepté engage les parties. Les résultats chiffrés publiés correspondent à des projets précis, sur
+        une période donnée, et ne constituent pas une garantie de résultat pour un autre projet.
+      </p>
+
+      <h2>Liens externes</h2>
+      <p>
+        Ce site contient des liens vers des sites tiers, notamment les réalisations présentées et les réseaux sociaux.
+        {site.name} n’est pas responsable du contenu de ces sites ni de leur disponibilité.
+      </p>
+
+      <h2>Données personnelles</h2>
+      <p>
+        Le traitement de vos données est décrit dans la page <a href="/confidentialite">Confidentialité</a>.
+      </p>
+
+      <h2>Droit applicable</h2>
+      <p>Le présent site est soumis au droit camerounais.</p>
+    </div>
+  </section>
+</Base>
