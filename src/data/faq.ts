@@ -1,8 +1,4 @@
-/**
- * Questions fréquentes.
- * Les réponses marquées `draft: true` décrivent des conditions commerciales (délais, acompte, tarifs)
- * qui restent à valider par le fondateur : ce sont des exemples plausibles, pas des engagements.
- */
+/** Questions fréquentes fondées sur les services et conditions actuellement confirmés. */
 export interface FaqItem {
   question: string;
   answer: string;
@@ -15,8 +11,7 @@ export const faq: FaqItem[] = [
     category: 'Avant de commencer',
     question: 'Combien coûte un site web ?',
     answer:
-      'Le prix dépend du nombre de pages, des fonctionnalités et des contenus à préparer. Un site vitrine simple démarre autour de 100 000 FCFA ; un catalogue ou une application se chiffre sur devis après un échange.',
-    draft: true,
+      'Le tarif dépend du nombre de pages, des fonctionnalités et des contenus à préparer. Écrivez-moi pour décrire votre besoin et recevoir un devis adapté.'
   },
   {
     category: 'Avant de commencer',
@@ -28,22 +23,19 @@ export const faq: FaqItem[] = [
     category: 'Avant de commencer',
     question: 'Travaillez-vous avec des entreprises hors de Douala ?',
     answer:
-      'Oui. Les échanges se font par WhatsApp, appel ou visioconférence, et la plupart des projets se réalisent entièrement à distance. Un rendez-vous sur place est possible à Douala.',
-    draft: true,
+      'Brayano Service est basé à Douala. Pour un projet dans une autre ville, contactez-moi afin que nous vérifiions ensemble les modalités.'
   },
   {
     category: 'Déroulement',
     question: 'Combien de temps faut-il pour créer un site ?',
     answer:
-      'Comptez une à deux semaines pour un site vitrine une fois vos textes et vos photos réunis, et trois à six semaines pour un site plus complet. Le délai est précisé dans le devis.',
-    draft: true,
+      'Le délai dépend du périmètre du site et de la disponibilité des textes, photos et autres contenus. Le calendrier est précisé dans le devis avant le démarrage.'
   },
   {
     category: 'Déroulement',
     question: 'Comment se passe le paiement ?',
     answer:
-      'Un acompte de 50 % est demandé au démarrage et le solde à la livraison. Le règlement se fait par Orange Money, MTN Mobile Money ou virement bancaire.',
-    draft: true,
+      'Les modalités de paiement sont convenues avant le démarrage et indiquées dans le devis accepté.'
   },
   {
     category: 'Déroulement',
@@ -55,15 +47,13 @@ export const faq: FaqItem[] = [
     category: 'Après la livraison',
     question: 'Le site m’appartient-il ?',
     answer:
-      'Oui. À la fin du projet, vous disposez des accès au site, au nom de domaine et à l’hébergement, ouverts à votre nom.',
-    draft: true,
+      'Les livrables, les accès transmis et les modalités de transfert sont précisés dans le devis avant le démarrage.'
   },
   {
     category: 'Après la livraison',
     question: 'Proposez-vous la maintenance ?',
     answer:
-      'Oui, sous forme de forfait mensuel ou d’interventions ponctuelles : mises à jour, corrections, ajout de contenus. Les conditions figurent dans le devis.',
-    draft: true,
+      'La maintenance et les évolutions peuvent être discutées selon le site et les besoins. Les prestations et leur coût sont précisés dans un devis.'
   },
   {
     category: 'Brayano IA',
