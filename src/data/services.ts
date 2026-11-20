@@ -98,7 +98,7 @@ export const services: Service[] = [
       'Aucun volume de messages ni de ventes n’est garanti. Les résultats passés ne préjugent pas des suivants.',
     ],
     relatedProjects: ['campagne-pure-molecule'],
-    price: { label: 'Option Test : 45 000 FCFA', note: 'Offre test de publicité. Le périmètre exact et le budget publicitaire sont confirmés dans le devis.' },
+    price: { label: 'Gestion publicitaire : 15 000 FCFA/mois', note: 'Budget publicitaire Meta en supplément. Option Test : 25 000 FCFA. Pack Visibilité : 100 000 FCFA, comprenant 10 visuels, une campagne Meta, la visibilité Google Maps et la mise en place de WhatsApp Business.' },
   },
   {
     slug: 'logiciels',
