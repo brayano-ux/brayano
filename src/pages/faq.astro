@@ -1,0 +1,86 @@
+---
+import Base from '@/layouts/Base.astro';
+import PageHero from '@/components/PageHero.astro';
+import CtaBand from '@/components/CtaBand.astro';
+import DraftBadge from '@/components/DraftBadge.astro';
+import { published } from '@/config/site';
+import { faq, faqCategories } from '@/data/faq';
+
+const items = published(faq);
+const groups = faqCategories
+  .map((category) => ({ category, items: items.filter((item) => item.category === category) }))
+  .filter((group) => group.items.length > 0);
+---
+
+<Base
+  title="Questions fréquentes · Brayano Service"
+  description="Prix, délais, paiement, propriété du site, maintenance, Brayano IA : les réponses aux questions les plus courantes."
+>
+  <PageHero
+    eyebrow="Questions fréquentes"
+    title="Les réponses, avant même de m’écrire."
+    lead="Si votre question n’est pas ici, posez-la sur WhatsApp : je réponds personnellement."
+  />
+
+  <section class="section">
+    <div class="container faq">
+      {groups.map((group) => (
+        <div class="faq__group" data-reveal>
+          <h2>{group.category}</h2>
+          <div class="faq__list">
+            {group.items.map((item) => (
+              <details class="faq__item">
+                <summary>
+                  <span>{item.question}</span>
+                  {item.draft && <DraftBadge label="Réponse d’exemple" />}
+                </summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CtaBand title="Une autre question ?" text="Écrivez-moi sur WhatsApp ou décrivez votre besoin dans le formulaire de devis : vous aurez une réponse claire, sans engagement." />
+</Base>
+
+<style>
+  .faq { display: grid; gap: var(--space-8); max-width: 52rem; }
+  .faq__group { display: grid; gap: var(--space-4); }
+  .faq__group h2 { font-size: var(--step-2); }
+  .faq__list { border-top: 1px solid var(--line-strong); }
+  .faq__item { border-bottom: 1px solid var(--line-strong); }
+  .faq__item summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    min-height: 3.5rem;
+    padding: var(--space-4) 2.5rem var(--space-4) 0;
+    position: relative;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.04rem;
+    line-height: 1.35;
+    cursor: pointer;
+    list-style: none;
+  }
+  .faq__item summary::-webkit-details-marker { display: none; }
+  .faq__item summary::after {
+    content: '';
+    position: absolute;
+    right: 0.4rem;
+    top: 50%;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-right: 2px solid var(--highlight);
+    border-bottom: 2px solid var(--highlight);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform var(--dur) var(--ease-out);
+  }
+  .faq__item[open] summary::after { transform: translateY(-30%) rotate(-135deg); }
+  .faq__item summary:hover { color: var(--highlight); }
+  .faq__item p { padding: 0 2.5rem var(--space-5) 0; color: var(--text-muted); max-width: 46rem; }
+</style>

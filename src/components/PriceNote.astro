@@ -1,0 +1,24 @@
+---
+import DraftBadge from './DraftBadge.astro';
+import { showDrafts } from '@/config/site';
+import type { Service } from '@/data/services';
+
+interface Props { price: Service['price']; compact?: boolean }
+const { price, compact = false } = Astro.props;
+const visible = price && (!price.draft || showDrafts);
+---
+
+{visible && price && (
+  <p class:list={['price', { 'price--compact': compact }]}>
+    <span class="price__label">{price.label}</span>
+    {price.draft && <DraftBadge label="Prix d’exemple" />}
+    {!compact && <span class="price__note">{price.note}</span>}
+  </p>
+)}
+
+<style>
+  .price { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.6rem; }
+  .price__label { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; letter-spacing: -0.015em; color: var(--text); }
+  .price__note { flex-basis: 100%; font-size: 0.86rem; color: var(--text-muted); }
+  .price--compact .price__label { font-size: 0.95rem; }
+</style>

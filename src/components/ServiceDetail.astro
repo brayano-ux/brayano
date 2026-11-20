@@ -5,6 +5,9 @@ import Photo from './Photo.astro';
 import ProjectCard from './ProjectCard.astro';
 import CtaBand from './CtaBand.astro';
 import Icon from './Icon.astro';
+import PriceNote from './PriceNote.astro';
+import DraftBadge from './DraftBadge.astro';
+import { showDrafts } from '@/config/site';
 import { services, type Service } from '@/data/services';
 import { getProject } from '@/data/projects';
 import { whatsappLink } from '@/lib/whatsapp';
@@ -13,6 +16,7 @@ interface Props { service: Service }
 const { service } = Astro.props;
 const related = service.relatedProjects.map((slug) => getProject(slug)).filter((project) => project !== undefined);
 const others = services.filter((item) => item.slug !== service.slug);
+const programme = service.programme && (!service.programme.draft || showDrafts) ? service.programme : undefined;
 ---
 
 <Base title={`${service.title} · Brayano Service`} description={service.summary}>
@@ -32,6 +36,7 @@ const others = services.filter((item) => item.slug !== service.slug);
         <h2>À qui s’adresse ce service</h2>
         <p class="muted">{service.audience}</p>
         <p class="sd__benefit">{service.benefit}</p>
+        <PriceNote price={service.price} />
       </div>
       <div>
         <h2 class="visually-hidden">Ce que comprend le service</h2>
@@ -47,7 +52,30 @@ const others = services.filter((item) => item.slug !== service.slug);
     </div>
   </section>
 
-  <section class="section band">
+  {programme && (
+    <section class="section band" aria-labelledby="programme-titre">
+      <div class="container split">
+        <div class="split__head" data-reveal>
+          <p class="eyebrow">Programme</p>
+          <h2 id="programme-titre">Ce que vous apprenez {programme.draft && <DraftBadge />}</h2>
+          <dl class="sd__facts">
+            <div><dt>Format</dt><dd>{programme.format}</dd></div>
+            <div><dt>Durée</dt><dd>{programme.duration}</dd></div>
+          </dl>
+        </div>
+        <ol class="numbered" data-reveal>
+          {programme.modules.map((module) => (
+            <li>
+              <h3>{module.title}</h3>
+              <p>{module.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class:list={['section', { band: !programme }]}>
     <div class="container split">
       <div class="split__head" data-reveal>
         <p class="eyebrow">Déroulement</p>
@@ -111,6 +139,9 @@ const others = services.filter((item) => item.slug !== service.slug);
 <style>
   .sd__visual { border: 1px solid var(--line); border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-float); }
   .sd__benefit { padding-top: var(--space-4); border-top: 1px solid var(--line); font-size: var(--step-1); line-height: 1.4; color: var(--text); }
+  .sd__facts { display: grid; gap: var(--space-3); margin: var(--space-2) 0 0; }
+  .sd__facts dt { font-size: 0.78rem; color: var(--text-dim); }
+  .sd__facts dd { margin: 0; font-size: 0.96rem; }
   .sd__related { display: grid; gap: var(--space-5); }
   @media (min-width: 62rem) {
     .sd__related { grid-template-columns: 1fr 1fr; }

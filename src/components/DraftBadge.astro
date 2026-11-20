@@ -1,0 +1,26 @@
+---
+/** Étiquette apposée sur tout contenu d'exemple, visible uniquement en mode démonstration. */
+interface Props { label?: string }
+const { label = 'Exemple' } = Astro.props;
+---
+
+<span class="draft-badge">{label}<span class="visually-hidden"> : contenu provisoire à valider</span></span>
+
+<style>
+  .draft-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.55rem;
+    border: 1px dashed #b7791f;
+    border-radius: var(--radius-pill);
+    background: #fff6dd;
+    color: #6b4200;
+    font-family: var(--font-display);
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
+</style>

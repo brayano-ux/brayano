@@ -115,12 +115,31 @@ const dashboard = getProject('brayano-ia')?.gallery[0];
           <li>Vous pouvez répondre vous-même à tout moment : l’assistant se met en pause pour ce client.</li>
           <li>Un paiement n’est jamais confirmé par l’IA : la capture vous est signalée, vous validez.</li>
           <li>Quand l’assistant n’est pas sûr, il vous passe la conversation au lieu d’improviser.</li>
-          <li>Les forfaits et leurs tarifs sont publiés sur le site du produit et se règlent par Mobile Money.</li>
         </ul>
-        <p>
-          <a class="link-arrow" href={site.product.pricingUrl} target="_blank" rel="noopener">Voir les forfaits sur le site du produit <Icon name="external" /></a>
-        </p>
       </div>
+    </div>
+  </section>
+
+  <section class="section band" aria-labelledby="tarifs-titre">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Tarifs</p>
+        <h2 id="tarifs-titre">Un essai gratuit, puis trois forfaits.</h2>
+        <p class="lead">{brayanoIa.pricing.trial}</p>
+      </div>
+      <ul class="plans">
+        {brayanoIa.pricing.plans.map((plan, index) => (
+          <li class="plan" data-reveal style={`--i:${index}`}>
+            <h3>{plan.name}</h3>
+            <p class="plan__price">{plan.price}</p>
+            <p class="muted">{plan.text}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="plans__note">
+        {brayanoIa.pricing.note} Tarifs relevés sur le site du produit le {brayanoIa.pricing.checkedOn} :
+        <a href={site.product.pricingUrl} target="_blank" rel="noopener">vérifier les tarifs en vigueur</a>.
+      </p>
     </div>
   </section>
 
@@ -147,5 +166,13 @@ const dashboard = getProject('brayano-ia')?.gallery[0];
   .dash { margin: 0; border: 1px solid var(--line-strong); border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-float); }
   .dash figcaption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); background: var(--surface); font-size: 0.84rem; color: var(--text-muted); }
   .ia__audiences { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-2); }
+  .plans { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+  .plan { display: grid; gap: var(--space-2); align-content: start; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius-l); background: var(--surface); box-shadow: var(--shadow-card); }
+  .plan h3 { font-size: var(--step-1); }
+  .plan__price { font-family: var(--font-display); font-weight: 600; font-size: var(--step-2); letter-spacing: -0.03em; color: var(--highlight); }
+  .plan p:last-child { font-size: 0.95rem; }
+  .plans__note { margin-top: var(--space-5); max-width: 46rem; font-size: 0.86rem; color: var(--text-muted); }
+  .plans__note a { color: var(--highlight); text-underline-offset: 4px; }
+  .ia__legal { padding-top: var(--space-6); }
   .ia__legal p { max-width: 46rem; font-size: 0.82rem; color: var(--text-dim); }
 </style>

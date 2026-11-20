@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import Photo from './Photo.astro';
+import PriceNote from './PriceNote.astro';
 import { services } from '@/data/services';
 ---
 
@@ -23,6 +24,7 @@ import { services } from '@/data/services';
           <h3>{service.title}</h3>
           <p class="muted">{service.summary}</p>
           <p class="card__benefit">{service.benefit}</p>
+          <PriceNote price={service.price} compact />
           <a class="link-arrow card__cta" href={service.path}>
             Découvrir ce service<span class="visually-hidden"> : {service.title}</span>
             <Icon name="arrow" />
@@ -38,7 +40,7 @@ import { services } from '@/data/services';
   .card {
     position: relative;
     display: grid;
-    grid-template-rows: auto auto auto 1fr auto auto;
+    grid-template-rows: auto auto auto 1fr auto;
     gap: var(--space-3);
     padding: var(--space-5);
     border: 1px solid var(--line);

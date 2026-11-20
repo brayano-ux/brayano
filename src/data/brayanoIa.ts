@@ -127,6 +127,20 @@ export const brayanoIa = {
       ],
     },
   ],
+  /**
+   * Forfaits publiés sur le site du produit (relevés le 20 novembre 2026). Données réelles, pas des exemples :
+   * à mettre à jour si les tarifs du produit changent.
+   */
+  pricing: {
+    checkedOn: '20 novembre 2026',
+    trial: 'Essai gratuit : 100 réponses offertes, sans carte bancaire.',
+    plans: [
+      { name: 'Essentiel', price: '10 000 FCFA / mois', text: '1 000 réponses de l’assistant par mois, catalogue, commandes et rendez-vous.' },
+      { name: 'Pro', price: '20 000 FCFA / mois', text: '5 000 réponses par mois, relances automatiques, messages groupés, 3 employés.' },
+      { name: 'Business', price: '50 000 FCFA / mois', text: '15 000 réponses par mois, 10 employés, aide à l’installation.' },
+    ],
+    note: 'Un forfait dure 30 jours, sans engagement, et se règle par Orange Money ou MTN MoMo.',
+  },
   audiences: ['Boutiques', 'Salons de coiffure', 'Restaurants', 'Cliniques', 'Écoles', 'Prestataires de services'],
   disclaimer:
     'Brayano IA est un service indépendant. WhatsApp est une marque de Meta : Brayano IA n’est ni affilié à WhatsApp ni approuvé par WhatsApp.',

@@ -63,11 +63,41 @@ les balises canoniques, le sitemap et les aperçus de partage utilisent le bon d
 | `/realisations`, `/realisations/[slug]` | Portfolio et études de cas |
 | `/brayano-ia` | Présentation du produit Brayano IA |
 | `/a-propos` | Le fondateur et sa façon de travailler |
+| `/faq` | Questions fréquentes |
 | `/contact` | Coordonnées et formulaire de demande de devis |
 | `/mentions-legales`, `/confidentialite` | Pages légales |
 
 Le formulaire de devis n'envoie rien à un serveur : il valide la saisie, compose un message et ouvre
 WhatsApp (ou un e-mail) avec ce message. La logique est dans `src/lib/quote.ts`.
+
+## Contenus d'exemple et mode démonstration
+
+Certains contenus attendent encore des données réelles : témoignages, prix d'appel, plusieurs réponses de
+la FAQ, programme de la formation, parcours du fondateur, numéros d'immatriculation. Ils existent dans le
+code sous forme d'**exemples**, marqués `draft: true`.
+
+- Sur le site public, ces exemples sont **masqués** : aucun faux avis ni faux prix n'est montré à un visiteur.
+- En mode démonstration, ils s'affichent avec une étiquette « Exemple », un bandeau d'avertissement en haut
+  de page, et les pages portent `noindex` pour rester hors de Google.
+
+Le mode démonstration est actif avec `npm run dev`. Pour un build ou un déploiement de prévisualisation :
+
+```bash
+PUBLIC_SHOW_DRAFTS=true npm run build
+```
+
+Pour publier un contenu : remplacer l'exemple par la donnée vérifiée, puis supprimer `draft: true`.
+
+| Contenu d'exemple | Fichier |
+| --- | --- |
+| Témoignages | `src/data/testimonials.ts` |
+| Prix d'appel et programme de formation | `src/data/services.ts` (`price`, `programme`) |
+| Questions fréquentes | `src/data/faq.ts` |
+| Parcours du fondateur | `src/pages/a-propos.astro` (`journey`) |
+| Adresse, RCCM, NIU | `src/pages/mentions-legales.astro` |
+
+Les forfaits de Brayano IA (`src/data/brayanoIa.ts`, `pricing`) sont des données réelles, relevées sur le
+site du produit : les mettre à jour si les tarifs changent.
 
 ## État d'avancement
 

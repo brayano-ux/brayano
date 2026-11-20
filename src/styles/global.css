@@ -295,3 +295,16 @@ a { color: inherit; }
 .prose ul { display: grid; gap: var(--space-2); padding-left: 1.2rem; list-style: disc; }
 .prose a { color: var(--highlight); text-underline-offset: 4px; }
 .prose strong { color: var(--text); font-weight: 600; }
+
+/* Bandeau du mode démonstration (contenus d'exemple affichés). */
+.demo-banner {
+  position: relative;
+  z-index: 60;
+  padding: 0.6rem var(--gutter);
+  background: #fff6dd;
+  border-bottom: 1px dashed #b7791f;
+  color: #6b4200;
+  font-size: 0.84rem;
+  line-height: 1.45;
+  text-align: center;
+}

@@ -5,7 +5,9 @@ import PageHero from '@/components/PageHero.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Icon from '@/components/Icon.astro';
 import portrait from '@/assets/equipe/brayano.jpg';
-import { site } from '@/config/site';
+import DraftBadge from '@/components/DraftBadge.astro';
+import { site, published } from '@/config/site';
+import { services } from '@/data/services';
 import { whatsappLink } from '@/lib/whatsapp';
 
 const principles = [
@@ -14,6 +16,13 @@ const principles = [
   { title: 'Pas de promesse en l’air', text: 'Ni ventes garanties, ni première place sur Google. Je m’engage sur le travail fourni, et je mesure ce qui peut l’être.' },
   { title: 'Des outils que vous maîtrisez', text: 'À la livraison, vous savez utiliser ce qui a été mis en place et vous en gardez les accès.' },
 ];
+
+// ⚠ Parcours d'EXEMPLE : dates et étapes à remplacer par le parcours réel du fondateur, puis retirer `draft`.
+const journey = published([
+  { year: '2023', title: 'Premiers sites web', text: 'Réalisation de sites pour des commerces et des indépendants de Douala.', draft: true },
+  { year: '2025', title: 'Publicité en ligne', text: 'Mise en place de campagnes Facebook et Instagram tournées vers WhatsApp.', draft: true },
+  { year: '2026', title: 'Lancement de Brayano IA', text: 'Mise en ligne de l’assistant IA pour les entreprises qui vendent sur WhatsApp.', draft: true },
+]);
 ---
 
 <Base
@@ -61,6 +70,42 @@ const principles = [
   </section>
 
   <section class="section band">
+    <div class="container split">
+      <div class="split__head" data-reveal>
+        <p class="eyebrow">Compétences</p>
+        <h2>Les domaines que je couvre</h2>
+      </div>
+      <ul class="about__skills" data-reveal>
+        {services.map((service) => (
+          <li><a href={service.path}>{service.title} <Icon name="arrow" /></a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {journey.length > 0 && (
+    <section class="section">
+      <div class="container split">
+        <div class="split__head" data-reveal>
+          <p class="eyebrow">Parcours</p>
+          <h2>Les étapes <DraftBadge /></h2>
+        </div>
+        <ol class="about__journey" data-reveal>
+          {journey.map((step) => (
+            <li>
+              <span class="about__year">{step.year}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p class="muted">{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  )}
+
+  <section class="section band">
     <div class="container">
       <div class="section-head" data-reveal>
         <p class="eyebrow">Façon de travailler</p>
@@ -101,6 +146,15 @@ const principles = [
   .portrait strong { font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; color: var(--text); }
   .about__text { display: grid; gap: var(--space-4); max-width: 42rem; font-size: var(--step-1); line-height: 1.55; color: var(--text-muted); }
   .about__text a { color: var(--highlight); text-underline-offset: 4px; }
+  .about__skills { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+  .about__skills a { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 3.25rem; padding: var(--space-3) var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--surface); box-shadow: var(--shadow-card); text-decoration: none; font-family: var(--font-display); font-weight: 500; font-size: 0.94rem; transition: border-color var(--dur-fast); }
+  .about__skills a:hover { border-color: var(--accent); }
+  .about__skills :global(svg) { width: 1rem; height: 1rem; color: var(--highlight); flex: none; }
+  .about__journey { display: grid; }
+  .about__journey li { display: grid; grid-template-columns: 4.5rem 1fr; gap: var(--space-4); padding-block: var(--space-5); border-top: 1px solid var(--line); }
+  .about__journey li:first-child { border-top: 0; padding-top: 0; }
+  .about__year { font-family: var(--font-display); font-weight: 600; font-size: 1.1rem; color: var(--highlight); }
+  .about__journey h3 { font-size: 1.08rem; margin-bottom: 0.25rem; }
   .about__social { display: grid; gap: var(--space-3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
   .about__social a { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); min-height: 3.25rem; padding: var(--space-3) var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--surface); text-decoration: none; transition: border-color var(--dur-fast); }
   .about__social a:hover { border-color: var(--accent); }

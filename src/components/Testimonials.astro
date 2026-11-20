@@ -1,0 +1,44 @@
+---
+import DraftBadge from './DraftBadge.astro';
+import { published } from '@/config/site';
+import { testimonials } from '@/data/testimonials';
+
+const items = published(testimonials);
+---
+
+{items.length > 0 && (
+  <section class="section band" aria-labelledby="avis-titre">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Avis clients</p>
+        <h2 id="avis-titre">Ce qu’en disent ceux qui ont travaillé avec moi.</h2>
+      </div>
+      <ul class="quotes">
+        {items.map((item, index) => (
+          <li data-reveal style={`--i:${index}`}>
+            <figure class="quote">
+              {item.draft && <DraftBadge />}
+              <blockquote><p>{item.quote}</p></blockquote>
+              <figcaption>
+                <strong>{item.name}</strong>
+                <span>{item.role}</span>
+                <span class="tag">{item.context}</span>
+              </figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
+<style>
+  .quotes { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); }
+  .quote { display: grid; gap: var(--space-4); align-content: start; justify-items: start; height: 100%; margin: 0; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius-l); background: var(--surface); box-shadow: var(--shadow-card); }
+  blockquote { margin: 0; font-size: 1.04rem; line-height: 1.55; color: var(--text); }
+  blockquote p::before { content: '« '; color: var(--highlight); }
+  blockquote p::after { content: ' »'; color: var(--highlight); }
+  figcaption { display: grid; gap: 0.3rem; justify-items: start; margin-top: auto; padding-top: var(--space-4); border-top: 1px solid var(--line); width: 100%; font-size: 0.88rem; color: var(--text-muted); }
+  figcaption strong { font-family: var(--font-display); font-weight: 600; font-size: 0.96rem; color: var(--text); }
+  figcaption .tag { margin-top: 0.3rem; }
+</style>
