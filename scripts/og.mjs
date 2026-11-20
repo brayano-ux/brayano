@@ -14,12 +14,12 @@ const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face{font-family:Sora;src:url(data:font/woff2;base64,${font('sora', 'sora-latin-wght-normal.woff2')});font-weight:100 800}
 @font-face{font-family:Inst;src:url(data:font/woff2;base64,${font('instrument-sans', 'instrument-sans-latin-wght-normal.woff2')});font-weight:400 700}
 *{box-sizing:border-box;margin:0}
-body{width:1200px;height:630px;padding:72px 80px;display:flex;flex-direction:column;justify-content:space-between;color:#eef1f7;font-family:Inst;
-background:radial-gradient(900px 520px at 88% 0%,rgba(61,134,255,.6),transparent 62%),radial-gradient(620px 420px at 0% 100%,rgba(130,114,255,.2),transparent 62%),#061433}
-.brand{display:flex;align-items:center;gap:18px;font:700 34px Sora;letter-spacing:-.03em}.brand span{font-weight:400;color:#b9c5e2}
+body{width:1200px;height:630px;padding:72px 80px;display:flex;flex-direction:column;justify-content:space-between;color:#0a1a3a;font-family:Inst;
+background:radial-gradient(900px 520px at 90% 0%,rgba(37,99,235,.2),transparent 62%),radial-gradient(620px 420px at 0% 100%,rgba(2,132,199,.12),transparent 62%),#ffffff}
+.brand{display:flex;align-items:center;gap:18px;font:700 34px Sora;letter-spacing:-.03em}.brand span{font-weight:400;color:#44537a}
 h1{font:600 76px/1.05 Sora;letter-spacing:-.035em;max-width:960px}
-h1 b{font-weight:600;background:linear-gradient(100deg,#45d6ff,#3d86ff 60%,#8272ff);-webkit-background-clip:text;color:transparent}
-p{font-size:30px;color:#b9c5e2}
+h1 b{font-weight:600;background:linear-gradient(100deg,#0284c7,#2563eb 55%,#6d5df6);-webkit-background-clip:text;color:transparent}
+p{font-size:30px;color:#44537a}
 </style></head><body>
 <div class="brand"><img src="data:image/png;base64,${logo}" width="64" height="61" alt="">Brayano <span>Service</span></div>
 <h1>Faites du numérique un <b>véritable levier</b> de croissance.</h1>

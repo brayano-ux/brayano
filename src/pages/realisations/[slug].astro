@@ -3,6 +3,7 @@ import Base from '@/layouts/Base.astro';
 import PageHero from '@/components/PageHero.astro';
 import BrowserFrame from '@/components/BrowserFrame.astro';
 import Metrics from '@/components/Metrics.astro';
+import Photo from '@/components/Photo.astro';
 import CtaBand from '@/components/CtaBand.astro';
 import Icon from '@/components/Icon.astro';
 import { publishedProjects, projectPath, type Project } from '@/data/projects';
@@ -39,6 +40,13 @@ const others = publishedProjects.filter((item) => item.slug !== project.slug);
       {project.image && (
         <figure class="cs__shot" data-reveal>
           <BrowserFrame image={project.image} url={project.url} sizes="(min-width: 76rem) 76rem, 94vw" eager full />
+        </figure>
+      )}
+
+      {project.type === 'campagne' && (
+        <figure class="cs__shot cs__shot--photo" data-reveal>
+          <Photo name="campagne" sizes="(min-width: 76rem) 76rem, 94vw" ratio="21 / 9" eager />
+          <figcaption>Photo d’illustration : les publicités et les échanges avec les clients ne sont pas reproduits ici.</figcaption>
         </figure>
       )}
 
@@ -125,7 +133,7 @@ const others = publishedProjects.filter((item) => item.slug !== project.slug);
 <style>
   .cs__shot { margin: 0; border: 1px solid var(--line-strong); border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-float); }
   .cs__shot figcaption { padding: 0.7rem 1rem; border-top: 1px solid var(--line); background: var(--surface); font-size: 0.84rem; color: var(--text-muted); }
-  .cs__metrics { display: grid; gap: var(--space-5); padding: var(--space-6) var(--space-5); border: 1px solid var(--line-strong); border-radius: var(--radius-l); background: linear-gradient(165deg, var(--surface-2), var(--surface)); }
+  .cs__metrics { display: grid; gap: var(--space-5); margin-top: var(--space-5); padding: var(--space-6) var(--space-5); border: 1px solid var(--line-strong); border-radius: var(--radius-l); background: linear-gradient(165deg, var(--surface-2), var(--surface)); }
   .cs__metrics h2 { font-size: var(--step-1); }
   .cs__grid { display: grid; gap: var(--space-7); margin-top: var(--space-8); }
   .cs__facts { display: grid; gap: 0; margin: 0; align-content: start; }
@@ -142,7 +150,7 @@ const others = publishedProjects.filter((item) => item.slug !== project.slug);
   .cs__others a { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-4); border: 1px solid var(--line); border-radius: var(--radius-m); background: var(--surface); text-decoration: none; transition: border-color var(--dur-fast); }
   .cs__others a:hover { border-color: var(--accent); }
   .cs__others strong { flex: 1; font-family: var(--font-display); font-weight: 600; font-size: 0.98rem; }
-  .cs__others :global(svg) { width: 1rem; height: 1rem; color: var(--cyan); flex: none; }
+  .cs__others :global(svg) { width: 1rem; height: 1rem; color: var(--highlight); flex: none; }
   @media (min-width: 58rem) {
     .cs__grid { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.7fr); gap: var(--space-8); }
     .cs__facts { position: sticky; top: calc(var(--header-h) + 2rem); }

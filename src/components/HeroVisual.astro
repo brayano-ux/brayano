@@ -1,156 +1,74 @@
 ---
 /**
- * Composition du hero : un site, une campagne et une conversation reliés par un même flux.
- * Interfaces illustratives, sans aucune donnée chiffrée, signalées comme telles.
+ * Visuel du hero : une photo, sur laquelle flotte un extrait de conversation.
+ * La conversation est une illustration et est signalée comme telle.
  */
+import Photo from './Photo.astro';
 ---
 
 <figure class="hv" data-inview>
-  <svg class="hv__links" viewBox="0 0 600 520" fill="none" aria-hidden="true" preserveAspectRatio="none">
-    <path class="hv__path" d="M120 385 C 120 330, 165 310, 170 230" />
-    <path class="hv__path" d="M120 385 C 190 385, 215 420, 300 420" />
-    <path class="hv__path" d="M500 215 C 500 290, 468 300, 468 380" />
-  </svg>
-
-  <div class="hv__card hv__site">
-    <div class="hv__chrome"><i></i><i></i><i></i><span></span></div>
-    <div class="hv__site-body">
-      <div class="hv__site-text">
-        <b style="width:70%"></b><b style="width:92%"></b><b style="width:55%"></b>
-        <em></em>
-      </div>
-      <div class="hv__site-media"></div>
-    </div>
-    <div class="hv__site-row"><span></span><span></span><span></span></div>
-    <p class="hv__label">Site web</p>
+  <div class="hv__photo">
+    <Photo name="hero" sizes="(min-width: 62rem) 36rem, 92vw" ratio="5 / 4" eager />
   </div>
 
-  <div class="hv__card hv__ad">
-    <p class="hv__label">Campagne publicitaire</p>
-    <div class="hv__ad-media"></div>
-    <div class="hv__ad-line"><b></b><span>Envoyer un message</span></div>
-  </div>
-
-  <div class="hv__card hv__chat">
+  <div class="hv__chat">
     <p class="hv__chat-head"><i></i>Assistant IA · WhatsApp</p>
     <p class="hv__bubble hv__bubble--in">Vous livrez à Akwa&nbsp;?</p>
     <p class="hv__bubble hv__bubble--out">Oui, livraison possible aujourd’hui.</p>
+    <p class="demo-label">Illustration</p>
   </div>
 
-  <div class="hv__node"><span>IA</span></div>
-
-  <figcaption class="demo-label">Illustration · interfaces de démonstration</figcaption>
+  <ul class="hv__chips" aria-hidden="true">
+    <li>Sites web</li>
+    <li>Publicité</li>
+    <li>IA</li>
+    <li>Logiciels</li>
+  </ul>
 </figure>
 
 <style>
-  .hv {
-    position: relative;
-    margin: 0;
-    width: 100%;
-    max-width: 36rem;
-    aspect-ratio: 600 / 520;
-    justify-self: center;
-  }
+  .hv { position: relative; margin: 0; width: 100%; max-width: 36rem; justify-self: center; padding: 0 0 2.75rem 1.5rem; }
   .hv::before {
     content: '';
     position: absolute;
-    inset: 8% 6%;
-    background: radial-gradient(closest-side, rgb(61 134 255 / 0.28), transparent 72%);
-    filter: blur(8px);
-    pointer-events: none;
+    inset: 12% -4% 4% 10%;
+    border-radius: var(--radius-l);
+    background: linear-gradient(140deg, rgb(37 99 235 / 0.16), rgb(109 93 246 / 0.12));
+    transform: rotate(3deg);
   }
-  .hv__links { position: absolute; inset: 0; width: 100%; height: 100%; }
-  .hv__path {
-    stroke: var(--cyan);
-    stroke-opacity: 0.55;
-    stroke-width: 1.5;
-    stroke-dasharray: 5 9;
-    vector-effect: non-scaling-stroke;
-  }
+  .hv__photo { position: relative; border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-float); }
 
-  .hv__card {
+  .hv__chat {
     position: absolute;
-    border: 1px solid var(--line-strong);
+    left: 0;
+    bottom: 0;
+    width: min(17rem, 72%);
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.85rem;
+    border: 1px solid var(--line);
     border-radius: var(--radius-m);
-    background: linear-gradient(160deg, var(--surface-2), var(--surface));
+    background: var(--surface);
     box-shadow: var(--shadow-float);
   }
-  .hv__label {
-    font-family: var(--font-display);
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  /* Site web */
-  .hv__site { left: 0; top: 6%; width: 62%; padding-bottom: 0.7rem; }
-  .hv__chrome { display: flex; align-items: center; gap: 5px; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--line); }
-  .hv__chrome i { width: 7px; height: 7px; border-radius: 50%; background: var(--line-strong); }
-  .hv__chrome span { flex: 1; height: 9px; margin-left: 8px; border-radius: 9px; background: rgb(255 255 255 / 0.05); }
-  .hv__site-body { display: grid; grid-template-columns: 1.15fr 1fr; gap: 0.8rem; padding: 0.9rem 0.85rem 0.7rem; }
-  .hv__site-text { display: grid; gap: 7px; align-content: center; }
-  .hv__site-text b { display: block; height: 9px; border-radius: 9px; background: rgb(238 241 247 / 0.82); }
-  .hv__site-text b:nth-child(3) { background: rgb(238 241 247 / 0.3); height: 6px; }
-  .hv__site-text em { display: block; width: 46%; height: 18px; margin-top: 5px; border-radius: 18px; background: var(--accent); }
-  .hv__site-media { aspect-ratio: 4 / 3; border-radius: var(--radius-s); background: linear-gradient(135deg, rgb(69 214 255 / 0.5), rgb(61 134 255 / 0.55) 55%, rgb(130 114 255 / 0.5)); }
-  .hv__site-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; padding: 0 0.85rem 0.6rem; }
-  .hv__site-row span { height: 30px; border: 1px solid var(--line); border-radius: 7px; background: rgb(255 255 255 / 0.025); }
-  .hv__site .hv__label { padding-inline: 0.85rem; }
-
-  /* Campagne */
-  .hv__ad { right: 0; top: 0; width: 33%; padding: 0.7rem; display: grid; gap: 0.55rem; }
-  .hv__ad-media { aspect-ratio: 1; border-radius: var(--radius-s); background: linear-gradient(200deg, rgb(130 114 255 / 0.55), rgb(61 134 255 / 0.35)), var(--surface-2); }
-  .hv__ad-line { display: flex; align-items: center; gap: 0.4rem; font-size: 0.62rem; color: var(--text-muted); }
-  .hv__ad-line b { width: 14px; height: 14px; flex: none; border-radius: 50%; background: var(--whatsapp); }
-
-  /* Conversation */
-  .hv__chat { right: 0; bottom: 8%; width: 56%; padding: 0.75rem; display: grid; gap: 0.45rem; }
-  .hv__chat-head { display: flex; align-items: center; gap: 0.45rem; font-family: var(--font-display); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+  .hv__chat-head { display: flex; align-items: center; gap: 0.45rem; font-family: var(--font-display); font-size: 0.64rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
   .hv__chat-head i { width: 7px; height: 7px; border-radius: 50%; background: var(--whatsapp); }
-  .hv__bubble { max-width: 88%; padding: 0.45rem 0.65rem; border-radius: 0.8rem; font-size: clamp(0.68rem, 0.6rem + 0.3vw, 0.8rem); line-height: 1.35; }
-  .hv__bubble--in { background: rgb(255 255 255 / 0.07); border-bottom-left-radius: 0.2rem; }
-  .hv__bubble--out { justify-self: end; background: rgb(37 211 102 / 0.16); border: 1px solid rgb(37 211 102 / 0.3); border-bottom-right-radius: 0.2rem; }
+  .hv__bubble { max-width: 90%; padding: 0.45rem 0.7rem; border-radius: 0.8rem; font-size: 0.82rem; line-height: 1.35; }
+  .hv__bubble--in { background: var(--bg-raised); border-bottom-left-radius: 0.2rem; }
+  .hv__bubble--out { justify-self: end; background: #dcf8e6; color: #06301a; border-bottom-right-radius: 0.2rem; }
+  .hv__chat .demo-label { font-size: 0.58rem; }
 
-  /* Nœud central */
-  .hv__node {
-    position: absolute;
-    left: 20%;
-    top: 74%;
-    width: 3.4rem;
-    height: 3.4rem;
-    margin: -1.7rem 0 0 -1.7rem;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: var(--bg);
-    border: 1px solid var(--cyan);
-    box-shadow: 0 0 0 7px rgb(69 214 255 / 0.08), 0 0 32px rgb(69 214 255 / 0.4);
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: var(--cyan);
-  }
-
-  .hv figcaption { position: absolute; left: 0; bottom: 0; }
+  .hv__chips { position: absolute; right: 0.75rem; top: 0.75rem; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.35rem; max-width: 60%; }
+  .hv__chips li { padding: 0.3rem 0.65rem; border-radius: var(--radius-pill); background: rgb(255 255 255 / 0.92); font-family: var(--font-display); font-size: 0.68rem; font-weight: 600; color: var(--text); box-shadow: 0 4px 14px -6px rgb(13 38 89 / 0.5); }
 
   @media (prefers-reduced-motion: no-preference) {
-    .hv.is-in .hv__path { animation: hv-flow 2.8s linear infinite; }
-    .hv.is-in .hv__site { animation: hv-float 9s ease-in-out infinite; }
-    .hv.is-in .hv__ad { animation: hv-float 7.5s ease-in-out -2s infinite; }
-    .hv.is-in .hv__chat { animation: hv-float 8.5s ease-in-out -4s infinite; }
+    .hv.is-in .hv__chat { animation: hv-float 8s ease-in-out infinite; }
   }
-  @keyframes hv-flow { to { stroke-dashoffset: -28; } }
   @keyframes hv-float {
     0%, 100% { transform: translate3d(0, 0, 0); }
-    50% { transform: translate3d(0, -9px, 0); }
+    50% { transform: translate3d(0, -8px, 0); }
   }
-
   @media (max-width: 30rem) {
-    .hv__site { width: 74%; }
-    .hv__ad { width: 36%; top: -2%; }
-    .hv__chat { width: 66%; }
-    .hv__site-row { display: none; }
-    .hv__node { left: 15%; top: 73%; width: 2.8rem; height: 2.8rem; margin: -1.4rem 0 0 -1.4rem; font-size: 0.78rem; }
+    .hv { padding-left: 0.75rem; }
   }
 </style>

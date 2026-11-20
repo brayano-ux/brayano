@@ -17,6 +17,7 @@ npm run check      # vérification des types (Astro + TypeScript)
 npm run lint       # ESLint
 npm test           # tests unitaires (liens WhatsApp, formulaire de devis)
 npm run smoke      # contrôle du build dans un navigateur (nécessite `npm i -D playwright`)
+node scripts/shot.mjs <dossier> <largeur> <chemin...>   # captures pleine page du build
 ```
 
 ## Où modifier quoi
@@ -30,6 +31,7 @@ npm run smoke      # contrôle du build dans un navigateur (nécessite `npm i -D
 | Étapes de la méthode | `src/data/process.ts` |
 | Couleurs, typographie, espacements, durées d'animation | `src/styles/tokens.css` |
 | Captures des projets, portrait, logo | `src/assets/` |
+| Photos d’illustration et leurs crédits | `src/data/photos.ts` |
 
 Règle de contenu : un chiffre, un client ou un projet n'apparaît sur le site que s'il est documenté.
 Un projet sans URL ni capture reste à `verified: false` et n'est pas affiché.
@@ -69,7 +71,7 @@ WhatsApp (ou un e-mail) avec ce message. La logique est dans `src/lib/quote.ts`.
 
 ## État d'avancement
 
-Livré : toutes les pages ci-dessus en français, thème bleu, logo Brayano IA, SEO technique, tests.
+Livré : toutes les pages ci-dessus en français, thème blanc, logo Brayano IA, SEO technique, tests.
 
 À venir : version anglaise. À renseigner quand ils existeront : numéro RCCM / NIU et adresse dans
 `src/pages/mentions-legales.astro`, nom de domaine dans `PUBLIC_SITE_URL`, projet « Petits Jobs Express »

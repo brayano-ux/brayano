@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import ServiceVisual from './ServiceVisual.astro';
+import Photo from './Photo.astro';
 import { services } from '@/data/services';
 ---
 
@@ -18,7 +18,7 @@ import { services } from '@/data/services';
     <ul class="services__grid">
       {services.map((service, index) => (
         <li class="card" data-reveal style={`--i:${index % 3}`}>
-          <div class="card__visual"><ServiceVisual slug={service.slug} /></div>
+          <div class="card__visual"><Photo name={service.slug} sizes="(min-width: 62rem) 24rem, (min-width: 40rem) 45vw, 92vw" /></div>
           <p class="card__index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</p>
           <h3>{service.title}</h3>
           <p class="muted">{service.summary}</p>
@@ -43,21 +43,17 @@ import { services } from '@/data/services';
     padding: var(--space-5);
     border: 1px solid var(--line);
     border-radius: var(--radius-l);
-    background: linear-gradient(170deg, var(--surface), var(--bg-raised));
+    background: var(--surface);
     height: 100%;
     box-shadow: var(--shadow-card);
     transition: border-color var(--dur), transform var(--dur) var(--ease-out), opacity var(--dur-slow) var(--ease-out);
   }
   .card:hover,
-  .card:focus-within { border-color: rgb(77 147 255 / 0.65); }
+  .card:focus-within { border-color: rgb(37 99 235 / 0.55); }
   .card__visual {
     margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) var(--space-2);
-    padding: var(--space-3);
     border-radius: var(--radius-m);
-    background:
-      radial-gradient(14rem 7rem at 50% 110%, rgb(77 147 255 / 0.3), transparent 70%),
-      var(--bg);
-    border: 1px solid var(--line);
+    overflow: hidden;
   }
   .card__index { font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--text-dim); }
   .card__benefit { padding-top: var(--space-3); border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--text); }
@@ -65,12 +61,7 @@ import { services } from '@/data/services';
   /* Toute la carte est cliquable, le lien reste l'unique élément focalisable. */
   .card__cta::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
 
-  .card:hover :global(.sv-accent),
-  .card:focus-within :global(.sv-accent) { fill: var(--cyan); }
-  .card:hover :global(.sv-line),
-  .card:focus-within :global(.sv-line) { stroke: rgb(150 172 255 / 0.5); }
   @media (prefers-reduced-motion: no-preference) {
-    .card:hover :global(.sv-move), .card:focus-within :global(.sv-move) { transform: translateY(-4px); }
-    .card:hover :global(.sv-pulse), .card:focus-within :global(.sv-pulse) { transform: scale(1.15); }
+    .card:hover :global(.photo img), .card:focus-within :global(.photo img) { transform: scale(1.04); }
   }
 </style>

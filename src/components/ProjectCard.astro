@@ -2,6 +2,7 @@
 import Icon from './Icon.astro';
 import BrowserFrame from './BrowserFrame.astro';
 import Metrics from './Metrics.astro';
+import Photo from './Photo.astro';
 import { projectPath, type Project } from '@/data/projects';
 
 interface Props {
@@ -16,7 +17,7 @@ const isCampaign = project.type === 'campagne';
 ---
 
 <article class:list={['project', { 'project--wide': wide || isCampaign, 'project--case': isCampaign }]}>
-  {project.image && (
+  {project.image && !isCampaign && (
     <div class="project__media">
       <BrowserFrame
         image={project.image}
@@ -27,6 +28,7 @@ const isCampaign = project.type === 'campagne';
   )}
   {isCampaign && (
     <div class="project__media project__media--metrics">
+      <div class="project__photo"><Photo name="campagne" sizes="(min-width: 62rem) 32rem, 92vw" ratio="16 / 9" /></div>
       <Metrics metrics={project.metrics.slice(0, 2)} />
       <p class="project__source">{project.metricsSource}</p>
     </div>
@@ -62,13 +64,15 @@ const isCampaign = project.type === 'campagne';
     border: 1px solid var(--line);
     border-radius: var(--radius-l);
     background: var(--surface);
+    box-shadow: var(--shadow-card);
     overflow: hidden;
     transition: border-color var(--dur);
   }
-  .project:hover, .project:focus-within { border-color: rgb(77 147 255 / 0.6); }
+  .project:hover, .project:focus-within { border-color: rgb(37 99 235 / 0.55); }
   .project__media { border-bottom: 1px solid var(--line); overflow: hidden; }
   .project:hover .project__media :global(img) { transform: scale(1.025); }
-  .project__media--metrics { display: grid; gap: var(--space-4); align-content: center; padding: var(--space-6) var(--space-5); background: linear-gradient(165deg, var(--surface-2), var(--surface)); }
+  .project__media--metrics { display: grid; gap: var(--space-4); align-content: start; padding: var(--space-4) var(--space-4) var(--space-5); background: var(--bg-raised); }
+  .project__photo { border-radius: var(--radius-m); overflow: hidden; margin-bottom: var(--space-2); }
   .project__source { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
 
   .project__body { display: grid; gap: var(--space-3); padding: var(--space-5); align-content: start; }
@@ -79,7 +83,7 @@ const isCampaign = project.type === 'campagne';
   .project__title a::after { content: ''; position: absolute; inset: 0; z-index: 1; }
   .project__points { display: grid; gap: 0.4rem; margin-top: var(--space-2); font-size: 0.94rem; }
   .project__points li { position: relative; padding-left: 1.1rem; color: var(--text-muted); }
-  .project__points li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); }
+  .project__points li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 5px; height: 5px; border-radius: 50%; background: var(--highlight); }
   .project__skills { padding-top: var(--space-3); border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--text-dim); }
   .project__links { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-3) var(--space-5); }
   .project:hover .link-arrow :global(svg) { transform: translateX(4px); }

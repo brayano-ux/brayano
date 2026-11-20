@@ -106,7 +106,7 @@ import { whatsappLink } from '@/lib/whatsapp';
 </div>
 
 <style>
-  .qf { padding: clamp(1.25rem, 3vw, 2.25rem); border: 1px solid var(--line-strong); border-radius: var(--radius-l); background: var(--surface); box-shadow: var(--shadow-card); }
+  .qf { padding: clamp(1.25rem, 3vw, 2.25rem); border: 1px solid var(--line-strong); border-radius: var(--radius-l); background: var(--bg-raised); box-shadow: var(--shadow-card); }
   .qf__form { display: grid; gap: var(--space-5); }
   .qf__legend { font-size: 0.86rem; color: var(--text-muted); }
   .qf__row { display: grid; gap: var(--space-5); }
@@ -119,7 +119,7 @@ import { whatsappLink } from '@/lib/whatsapp';
     width: 100%;
     min-height: 3rem;
     padding: 0.75rem 0.9rem;
-    border: 1px solid var(--line-strong);
+    border: 1px solid var(--field-border);
     border-radius: var(--radius-s);
     background: var(--bg);
     color: var(--text);
@@ -129,17 +129,17 @@ import { whatsappLink } from '@/lib/whatsapp';
   }
   .field textarea { resize: vertical; min-height: 8rem; line-height: 1.5; }
   .field input::placeholder { color: var(--text-dim); }
-  .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--text-dim); }
-  .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--cyan); outline-offset: 1px; border-color: var(--cyan); }
-  .field :global([aria-invalid='true']) { border-color: #ff8f8f; }
+  .field input:hover, .field select:hover, .field textarea:hover { border-color: var(--text-muted); }
+  .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--highlight); outline-offset: 1px; border-color: var(--highlight); }
+  .field :global([aria-invalid='true']) { border-color: var(--danger-line); }
   .field__hint { font-size: 0.82rem; color: var(--text-dim); }
-  .field__error { font-size: 0.86rem; color: #ffb0b0; }
+  .field__error { font-size: 0.86rem; color: var(--danger); }
   .field__error::before { content: '⚠ '; }
 
-  .qf__summary { padding: var(--space-4); border: 1px solid #ff8f8f; border-radius: var(--radius-s); background: rgb(255 120 120 / 0.08); font-size: 0.94rem; color: #ffd0d0; }
+  .qf__summary { padding: var(--space-4); border: 1px solid var(--danger-line); border-radius: var(--radius-s); background: rgb(217 45 32 / 0.06); font-size: 0.94rem; color: var(--danger); }
   .qf__submit { justify-self: start; }
   .qf__privacy, .qf__noscript { font-size: 0.84rem; color: var(--text-muted); }
-  .qf__privacy a, .qf__noscript a { color: var(--cyan); text-underline-offset: 4px; }
+  .qf__privacy a, .qf__noscript a { color: var(--highlight); text-underline-offset: 4px; }
 
   .qf__done { display: grid; gap: var(--space-4); }
   .qf__done h2 { font-size: var(--step-2); }
@@ -147,7 +147,7 @@ import { whatsappLink } from '@/lib/whatsapp';
   .qf__done-lead strong { color: var(--text); }
   .qf__recap { width: 100%; padding: var(--space-4); border: 1px solid var(--line-strong); border-radius: var(--radius-s); background: var(--bg); color: var(--text); font: inherit; font-size: 0.94rem; line-height: 1.5; resize: vertical; }
   .qf__done-actions { display: flex; flex-wrap: wrap; gap: var(--space-3); }
-  .qf__status { min-height: 1.4em; font-size: 0.88rem; color: var(--cyan); }
+  .qf__status { min-height: 1.4em; font-size: 0.88rem; color: var(--highlight); }
   .qf__edit { justify-self: start; padding: 0.5rem 0; border: 0; background: none; color: var(--text-muted); font: inherit; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
   .qf__edit:hover { color: var(--text); }
   @media (max-width: 30rem) {

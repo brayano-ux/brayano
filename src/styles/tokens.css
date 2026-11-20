@@ -1,20 +1,25 @@
 /* Jetons de design : toute couleur, tout espacement et toute durée du site se règle ici. */
 :root {
-  /* Couleurs */
-  --bg: #061433;
-  --bg-raised: #08193f;
-  --surface: #0c214d;
-  --surface-2: #11295c;
-  --line: rgb(160 188 255 / 0.15);
-  --line-strong: rgb(160 188 255 / 0.3);
-  --text: #eef1f7;
-  --text-muted: #b9c5e2;
-  --text-dim: #93a3cb;
-  --accent: #4d93ff;
+  /* Couleurs — thème clair */
+  --bg: #ffffff;
+  --bg-raised: #f4f7fc;
+  --surface: #ffffff;
+  --surface-2: #eaf0fa;
+  --line: rgb(13 38 89 / 0.1);
+  --line-strong: rgb(13 38 89 / 0.2);
+  --field-border: #8490ab;
+  --text: #0a1a3a;
+  --text-muted: #44537a;
+  --text-dim: #5b6a8d;
+  --accent: #2563eb;
   --accent-strong: #2563eb;
   --accent-deep: #1d4fd8;
-  --cyan: #5cdcff;
-  --violet: #8f82ff;
+  /* Couleur de mise en avant lisible sur le fond : surtitres, liens, puces. */
+  --highlight: #1558d6;
+  --sky: #0284c7;
+  --violet: #6d5df6;
+  --danger: #b42318;
+  --danger-line: #d92d20;
   --whatsapp: #25d366;
   --whatsapp-ink: #03170b;
   --on-accent: #ffffff;
@@ -47,9 +52,9 @@
   --radius-m: 0.9rem;
   --radius-l: 1.4rem;
   --radius-pill: 999px;
-  --shadow-card: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 24px 48px -28px rgb(0 0 0 / 0.8);
-  --shadow-float: 0 30px 60px -30px rgb(0 6 28 / 0.85), 0 0 0 1px var(--line);
-  --glow-accent: 0 12px 34px -12px rgb(37 99 235 / 0.8);
+  --shadow-card: 0 1px 2px rgb(13 38 89 / 0.05), 0 14px 34px -20px rgb(13 38 89 / 0.28);
+  --shadow-float: 0 28px 60px -28px rgb(13 38 89 / 0.4), 0 0 0 1px var(--line);
+  --glow-accent: 0 12px 28px -12px rgb(37 99 235 / 0.6);
 
   /* Mouvement */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -58,4 +63,22 @@
   --dur-slow: 800ms;
 
   --header-h: 4.25rem;
+}
+
+/*
+ * Zones sombres sur fond clair (pied de page, appel à l'action, téléphone de démonstration) :
+ * la classe redéfinit les jetons, les composants n'ont rien à savoir.
+ */
+.on-dark {
+  --bg: #061433;
+  --bg-raised: #08193f;
+  --surface: #0c214d;
+  --surface-2: #11295c;
+  --line: rgb(160 188 255 / 0.15);
+  --line-strong: rgb(160 188 255 / 0.3);
+  --text: #eef1f7;
+  --text-muted: #b9c5e2;
+  --text-dim: #93a3cb;
+  --highlight: #5cdcff;
+  color: var(--text);
 }

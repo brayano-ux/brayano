@@ -1,7 +1,7 @@
 ---
 import Base from '@/layouts/Base.astro';
 import PageHero from './PageHero.astro';
-import ServiceVisual from './ServiceVisual.astro';
+import Photo from './Photo.astro';
 import ProjectCard from './ProjectCard.astro';
 import CtaBand from './CtaBand.astro';
 import Icon from './Icon.astro';
@@ -22,7 +22,7 @@ const others = services.filter((item) => item.slug !== service.slug);
       {service.cta}
     </a>
     <a class="btn btn--ghost" href={`/contact?service=${service.slug}`}>Demander un devis <Icon name="arrow" /></a>
-    <div slot="aside" class="sd__visual"><ServiceVisual slug={service.slug} /></div>
+    <div slot="aside" class="sd__visual"><Photo name={service.slug} sizes="(min-width: 62rem) 30rem, 92vw" ratio="4 / 3" eager /></div>
   </PageHero>
 
   <section class="section">
@@ -109,13 +109,7 @@ const others = services.filter((item) => item.slug !== service.slug);
 </Base>
 
 <style>
-  .sd__visual {
-    padding: var(--space-5);
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-l);
-    background: radial-gradient(20rem 10rem at 50% 110%, rgb(77 147 255 / 0.35), transparent 70%), var(--bg);
-    box-shadow: var(--shadow-float);
-  }
+  .sd__visual { border: 1px solid var(--line); border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-float); }
   .sd__benefit { padding-top: var(--space-4); border-top: 1px solid var(--line); font-size: var(--step-1); line-height: 1.4; color: var(--text); }
   .sd__related { display: grid; gap: var(--space-5); }
   @media (min-width: 62rem) {
@@ -139,5 +133,5 @@ const others = services.filter((item) => item.slug !== service.slug);
     transition: color var(--dur-fast), border-color var(--dur-fast);
   }
   .sd__others-list a:hover { color: var(--text); border-color: var(--accent); }
-  .sd__others-list :global(svg) { width: 0.95rem; height: 0.95rem; color: var(--cyan); }
+  .sd__others-list :global(svg) { width: 0.95rem; height: 0.95rem; color: var(--highlight); }
 </style>

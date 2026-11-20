@@ -141,7 +141,7 @@ const dashboard = getProject('brayano-ia')?.gallery[0];
 <style>
   .ia__facts { display: flex; flex-wrap: wrap; gap: var(--space-2); width: 100%; margin-top: var(--space-2); }
   .groups { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr)); }
-  .group { display: grid; gap: var(--space-4); align-content: start; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius-l); background: linear-gradient(170deg, var(--surface), var(--bg-raised)); }
+  .group { display: grid; gap: var(--space-4); align-content: start; padding: var(--space-5); border: 1px solid var(--line); border-radius: var(--radius-l); background: var(--surface); box-shadow: var(--shadow-card); }
   .group h3 { font-size: var(--step-1); }
   .group :global(.checks) { font-size: 0.95rem; }
   .dash { margin: 0; border: 1px solid var(--line-strong); border-radius: var(--radius-l); overflow: hidden; box-shadow: var(--shadow-float); }
