@@ -1,0 +1,125 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { featuredProjects } from '@/data/projects';
+import { campaigns } from '@/data/campaigns';
+
+const campaign = campaigns[0];
+const host = (url: string) => new URL(url).hostname;
+---
+
+<section class="section" id="realisations" aria-labelledby="realisations-titre">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Réalisations</p>
+      <h2 id="realisations-titre">Des projets en ligne, pas des promesses.</h2>
+      <p class="lead">Chaque réalisation ci-dessous est accessible : ouvrez-la, parcourez-la, jugez par vous-même.</p>
+    </div>
+
+    <ul class="projects">
+      {featuredProjects.map((project, index) => (
+        <li class:list={['project', { 'project--wide': index === 0 }]} data-reveal style={`--i:${index % 2}`}>
+          {project.image && (
+            <div class="project__frame">
+              <div class="project__chrome" aria-hidden="true">
+                <i></i><i></i><i></i>
+                {project.url && <span>{host(project.url)}</span>}
+              </div>
+              <Image
+                src={project.image}
+                alt={project.imageAlt ?? ''}
+                widths={[480, 760, 1100, 1440]}
+                sizes={index === 0 ? '(min-width: 62rem) 44rem, 92vw' : '(min-width: 62rem) 36rem, 92vw'}
+                loading="lazy"
+              />
+            </div>
+          )}
+          <div class="project__body">
+            <p class="project__meta"><span class="tag">{project.kind}</span>{project.sector}</p>
+            <h3>{project.name}</h3>
+            <p class="muted">{project.summary}</p>
+            <ul class="project__points">
+              {project.highlights.map((point) => <li>{point}</li>)}
+            </ul>
+            <p class="project__skills">{project.skills.join(' · ')}</p>
+            {project.url && (
+              <a class="link-arrow project__link" href={project.url} target="_blank" rel="noopener" data-track="realisation" data-track-origin={project.slug}>
+                Ouvrir le site<span class="visually-hidden"> {project.name}</span>
+                <Icon name="external" />
+              </a>
+            )}
+          </div>
+        </li>
+      ))}
+
+      {campaign && (
+        <li class="project project--case" data-reveal style="--i:1">
+          <div class="project__body">
+            <p class="project__meta"><span class="tag">Campagne publicitaire</span>{campaign.sector}</p>
+            <h3>{campaign.clientNamePublic ? campaign.clientName : 'Campagne Meta vers WhatsApp'}</h3>
+            <p class="muted">
+              Objectif : recevoir des demandes directement sur WhatsApp à partir de publicités Facebook et Instagram.
+            </p>
+            <dl class="case">
+              <div><dt>Conversations démarrées</dt><dd>{campaign.conversations}</dd></div>
+              <div><dt>Coût par conversation</dt><dd>{campaign.costPerConversation}</dd></div>
+              <div class="case__full"><dt>Période</dt><dd class="case__text">{campaign.period}</dd></div>
+            </dl>
+            <p class="project__skills">Source : {campaign.source}. {campaign.caveat}</p>
+          </div>
+        </li>
+      )}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .projects { display: grid; gap: var(--space-5); }
+  .project {
+    display: grid;
+    align-content: start;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: var(--surface);
+    overflow: hidden;
+    transition: border-color var(--dur), opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
+  }
+  .project:hover, .project:focus-within { border-color: var(--line-strong); }
+  .project__frame { background: var(--bg); border-bottom: 1px solid var(--line); overflow: hidden; }
+  .project__chrome { display: flex; align-items: center; gap: 6px; padding: 0.65rem 0.9rem; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+  .project__chrome i { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+  .project__chrome span { margin-left: 0.6rem; font-size: 0.72rem; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .project__frame :global(img) { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; transition: transform 900ms var(--ease-out); }
+  .project:hover .project__frame :global(img) { transform: scale(1.025); }
+
+  .project__body { display: grid; gap: var(--space-3); padding: var(--space-5); align-content: start; }
+  .project__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; font-size: 0.82rem; color: var(--text-dim); }
+  .project h3 { font-size: var(--step-2); letter-spacing: -0.025em; }
+  .project__points { display: grid; gap: 0.4rem; margin-top: var(--space-2); font-size: 0.94rem; }
+  .project__points li { position: relative; padding-left: 1.1rem; color: var(--text-muted); }
+  .project__points li::before { content: ''; position: absolute; left: 0; top: 0.62em; width: 5px; height: 5px; border-radius: 50%; background: var(--cyan); }
+  .project__skills { padding-top: var(--space-3); border-top: 1px solid var(--line); font-size: 0.8rem; color: var(--text-dim); }
+  .project__link { justify-self: start; padding-block: 0.5rem; }
+
+  .project--case { background: linear-gradient(165deg, var(--surface-2), var(--surface)); }
+  .case { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin: var(--space-3) 0 0; }
+  .case > div { display: grid; gap: 0.2rem; }
+  .case__full { grid-column: 1 / -1; }
+  .case dt { font-size: 0.78rem; color: var(--text-dim); order: 2; }
+  .case dd { margin: 0; font-family: var(--font-display); font-size: var(--step-3); font-weight: 600; letter-spacing: -0.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .case dd.case__text { font-size: 1rem; letter-spacing: -0.01em; line-height: 1.3; }
+
+  @media (min-width: 62rem) {
+    .projects { grid-template-columns: repeat(12, 1fr); }
+    .project { grid-column: span 6; }
+    .project--wide { grid-column: 1 / -1; grid-template-columns: 1.35fr 1fr; align-items: stretch; }
+    .project--wide .project__frame { border-bottom: 0; border-right: 1px solid var(--line); }
+    .project--wide .project__frame :global(img) { height: calc(100% - 2.2rem); aspect-ratio: auto; min-height: 22rem; }
+    .project--wide .project__body { padding: var(--space-6); align-content: center; }
+    /* Grille asymétrique : deux sites côte à côte, l'étude de cas en pleine largeur dessous. */
+    .project--case { grid-column: 1 / -1; }
+    .project--case .project__body { grid-template-columns: 1fr 1fr; column-gap: var(--space-7); padding: var(--space-6); }
+    .project--case .project__body > :not(.case) { grid-column: 1; }
+    .project--case .project__body > .case { grid-column: 2; grid-row: 1 / span 4; margin: 0; align-self: center; }
+  }
+</style>

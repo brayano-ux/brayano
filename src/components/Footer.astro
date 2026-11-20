@@ -1,0 +1,60 @@
+---
+import Logo from './Logo.astro';
+import { site, navigation } from '@/config/site';
+import { whatsappLink } from '@/lib/whatsapp';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__grid">
+    <div class="footer__about">
+      <a href="/" class="footer__brand"><Logo id="logo-footer" /></a>
+      <p class="muted">{site.description}</p>
+    </div>
+
+    <nav aria-label="Pied de page">
+      <h2 class="footer__title">Le site</h2>
+      <ul>
+        {navigation.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li><a href={site.product.url} target="_blank" rel="noopener">Site de Brayano IA</a></li>
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="footer__title">Contact</h2>
+      <ul>
+        <li><a href={whatsappLink('general')} target="_blank" rel="noopener" data-track="whatsapp" data-track-origin="footer">WhatsApp : {site.contact.phoneDisplay}</a></li>
+        <li><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
+        <li class="muted">{site.city}, {site.country}</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="footer__title">Suivre</h2>
+      <ul>
+        {site.social.map((item) => <li><a href={item.href} target="_blank" rel="noopener me">{item.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container footer__legal">
+    <p>© {year} {site.name} · {site.legalForm} de {site.founder.fullName}</p>
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--line); background: var(--bg-raised); padding-top: var(--space-8); font-size: 0.94rem; }
+  .footer__grid { display: grid; gap: var(--space-7) var(--space-6); grid-template-columns: repeat(auto-fit, minmax(11.5rem, 1fr)); }
+  .footer__about { display: grid; gap: var(--space-4); align-content: start; max-width: 22rem; }
+  .footer__brand { text-decoration: none; justify-self: start; }
+  .footer__title { font-size: 0.74rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: var(--space-4); }
+  .footer ul { display: grid; gap: 0.15rem; }
+  .footer li a { display: inline-block; padding: 0.35rem 0; color: var(--text-muted); text-decoration: none; transition: color var(--dur-fast); }
+  .footer li a:hover { color: var(--text); text-decoration: underline; text-underline-offset: 4px; }
+  .footer li.muted { padding: 0.35rem 0; }
+  .footer__legal { margin-top: var(--space-7); padding-block: var(--space-5) calc(var(--space-5) + 4.5rem); border-top: 1px solid var(--line); color: var(--text-dim); font-size: 0.84rem; }
+  @media (min-width: 48rem) {
+    .footer__grid { grid-template-columns: 1.6fr 1fr 1.2fr 1.1fr; }
+    .footer__legal { padding-bottom: var(--space-5); }
+  }
+</style>

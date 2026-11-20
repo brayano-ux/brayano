@@ -1,0 +1,60 @@
+/* Jetons de design : toute couleur, tout espacement et toute durée du site se règle ici. */
+:root {
+  /* Couleurs */
+  --bg: #060a13;
+  --bg-raised: #0a101d;
+  --surface: #0e1525;
+  --surface-2: #131c30;
+  --line: rgb(150 172 255 / 0.11);
+  --line-strong: rgb(150 172 255 / 0.22);
+  --text: #eef1f7;
+  --text-muted: #a6b0c6;
+  --text-dim: #7d89a3;
+  --accent: #3d86ff;
+  --accent-strong: #2a6bf0;
+  --cyan: #45d6ff;
+  --violet: #8272ff;
+  --whatsapp: #25d366;
+  --whatsapp-ink: #03170b;
+  --on-accent: #ffffff;
+
+  /* Typographie */
+  --font-display: 'Sora Variable', 'Sora', system-ui, sans-serif;
+  --font-body: 'Instrument Sans Variable', 'Instrument Sans', system-ui, sans-serif;
+  --step--1: clamp(0.82rem, 0.8rem + 0.1vw, 0.88rem);
+  --step-0: clamp(1rem, 0.97rem + 0.15vw, 1.08rem);
+  --step-1: clamp(1.12rem, 1.06rem + 0.3vw, 1.3rem);
+  --step-2: clamp(1.35rem, 1.2rem + 0.7vw, 1.75rem);
+  --step-3: clamp(1.75rem, 1.4rem + 1.6vw, 2.75rem);
+  --step-4: clamp(2.25rem, 1.5rem + 3.6vw, 4.5rem);
+
+  /* Espacements */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --section-y: clamp(4.5rem, 3rem + 7vw, 9rem);
+  --gutter: clamp(1.15rem, 0.6rem + 2.6vw, 2.5rem);
+  --container: 76rem;
+
+  /* Rayons, ombres */
+  --radius-s: 0.5rem;
+  --radius-m: 0.9rem;
+  --radius-l: 1.4rem;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 0 rgb(255 255 255 / 0.04) inset, 0 24px 48px -28px rgb(0 0 0 / 0.8);
+  --shadow-float: 0 30px 60px -30px rgb(0 8 30 / 0.9), 0 0 0 1px var(--line);
+  --glow-accent: 0 12px 34px -12px rgb(61 134 255 / 0.65);
+
+  /* Mouvement */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 160ms;
+  --dur: 320ms;
+  --dur-slow: 800ms;
+
+  --header-h: 4.25rem;
+}

@@ -1,0 +1,86 @@
+---
+import Icon from './Icon.astro';
+import HeroVisual from './HeroVisual.astro';
+import { site } from '@/config/site';
+import { whatsappLink } from '@/lib/whatsapp';
+---
+
+<section class="hero">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <p class="eyebrow hero__in" style="--i:0">{site.name} · {site.tagline}</p>
+      <h1 class="hero__in" style="--i:1">
+        Faites du numérique un <span class="hero__accent">véritable levier</span> de croissance.
+      </h1>
+      <p class="lead hero__in" style="--i:2">
+        Sites web, publicité Facebook et Instagram, intelligence artificielle et logiciels sur mesure : un seul
+        partenaire, à {site.city}, pour être trouvé, mieux répondre à vos clients et gagner du temps.
+      </p>
+      <div class="hero__actions hero__in" style="--i:3">
+        <a class="btn btn--whatsapp" href={whatsappLink('general')} target="_blank" rel="noopener" data-track="whatsapp" data-track-origin="hero">
+          <Icon name="whatsapp" />
+          Discuter de mon projet
+        </a>
+        <a class="btn btn--ghost" href="#realisations">
+          Découvrir nos réalisations
+          <Icon name="arrow" />
+        </a>
+      </div>
+    </div>
+    <div class="hero__visual hero__in" style="--i:2">
+      <HeroVisual />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    margin-top: calc(-1 * var(--header-h));
+    padding-top: calc(var(--header-h) + clamp(2.5rem, 1rem + 6vw, 6rem));
+    padding-bottom: clamp(3rem, 2rem + 4vw, 6rem);
+    overflow: clip;
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60rem 34rem at 82% 8%, rgb(61 134 255 / 0.2), transparent 62%),
+      radial-gradient(40rem 26rem at 4% 92%, rgb(130 114 255 / 0.11), transparent 62%),
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 100% 4.5rem,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 4.5rem 100%;
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  }
+  .hero__grid { position: relative; display: grid; gap: clamp(2.5rem, 5vw, 4rem); align-items: center; }
+  .hero__copy { display: grid; gap: var(--space-5); justify-items: start; }
+  .hero__copy .lead { max-width: 34rem; }
+  .hero__accent {
+    background: linear-gradient(100deg, var(--cyan), var(--accent) 60%, var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-3); margin-top: var(--space-2); }
+
+  @media (max-width: 30rem) {
+    .hero__actions { width: 100%; }
+    .hero__actions .btn { flex: 1 1 100%; }
+  }
+  @media (min-width: 62rem) {
+    .hero__grid { grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); }
+  }
+
+  /* Entrée du hero : jouée au chargement, sans dépendre de JavaScript. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__in {
+      animation: hero-in 900ms var(--ease-out) both;
+      animation-delay: calc(var(--i) * 90ms + 60ms);
+    }
+  }
+  @keyframes hero-in {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+</style>

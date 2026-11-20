@@ -1,0 +1,78 @@
+---
+import { processSteps } from '@/data/process';
+---
+
+<section class="section process" id="methode" aria-labelledby="methode-titre">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Méthode</p>
+      <h2 id="methode-titre">Quatre étapes, et vous savez toujours où en est votre projet.</h2>
+    </div>
+
+    <ol class="steps" data-inview>
+      {processSteps.map((step, index) => (
+        <li class="step" style={`--n:${index}`}>
+          <span class="step__num" aria-hidden="true">{index + 1}</span>
+          <h3>{step.title}</h3>
+          <p class="muted">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .steps { position: relative; display: grid; gap: var(--space-6); }
+  /* Ligne de progression : verticale sur mobile, horizontale sur grand écran. */
+  .steps::before,
+  .steps::after {
+    content: '';
+    position: absolute;
+    left: 1.2rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: var(--line-strong);
+  }
+  .steps::after { background: linear-gradient(var(--cyan), var(--accent)); transform-origin: top; }
+  .step { position: relative; display: grid; gap: var(--space-2); align-content: start; padding-left: 3.75rem; }
+  .step__num {
+    position: absolute;
+    left: 0;
+    top: -0.15rem;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 2.45rem;
+    height: 2.45rem;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1px solid var(--line-strong);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+  .step p { font-size: 0.96rem; }
+
+  @media (min-width: 56rem) {
+    .steps { grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
+    .steps::before, .steps::after { left: 1.2rem; right: 12%; top: 1.2rem; bottom: auto; width: auto; height: 1px; }
+    .steps::after { background: linear-gradient(90deg, var(--cyan), var(--accent)); transform-origin: left; }
+    .step { padding: 3.75rem var(--space-4) 0 0; }
+    .step__num { top: 0; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .steps::after { transform: scaleY(0); transition: transform 2.4s var(--ease-out) 0.2s; }
+    :global(.js) .steps.is-in::after { transform: none; }
+    :global(.js) .steps .step__num { transition: border-color 500ms, color 500ms, box-shadow 500ms; transition-delay: calc(var(--n) * 520ms + 300ms); }
+    :global(.js) .steps.is-in .step__num { border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 0 5px rgb(69 214 255 / 0.08); }
+    @media (min-width: 56rem) {
+      :global(.js) .steps::after { transform: scaleX(0); }
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .step__num { border-color: var(--cyan); color: var(--cyan); }
+  }
+</style>

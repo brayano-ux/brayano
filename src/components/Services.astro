@@ -1,0 +1,76 @@
+---
+import Icon from './Icon.astro';
+import ServiceVisual from './ServiceVisual.astro';
+import { services } from '@/data/services';
+import { whatsappLink } from '@/lib/whatsapp';
+---
+
+<section class="section services" id="services" aria-labelledby="services-titre">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Services</p>
+      <h2 id="services-titre">Six compétences, une seule logique : faire avancer votre activité.</h2>
+      <p class="lead">
+        Être trouvé, être contacté, bien répondre, gagner du temps. Chaque service répond à l’une de ces étapes, et ils
+        fonctionnent ensemble.
+      </p>
+    </div>
+
+    <ul class="services__grid">
+      {services.map((service, index) => (
+        <li class="card" data-reveal style={`--i:${index % 3}`}>
+          <div class="card__visual"><ServiceVisual slug={service.slug} /></div>
+          <p class="card__index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</p>
+          <h3>{service.title}</h3>
+          <p class="muted">{service.summary}</p>
+          <p class="card__benefit">{service.benefit}</p>
+          <a class="link-arrow card__cta" href={whatsappLink(service.intent)} target="_blank" rel="noopener" data-track="whatsapp" data-track-origin={`service-${service.slug}`}>
+            {service.cta}
+            <Icon name="arrow" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .services__grid { display: grid; gap: var(--space-4); grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
+  .card {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto auto 1fr auto auto;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-l);
+    background: linear-gradient(170deg, var(--surface), var(--bg-raised));
+    box-shadow: var(--shadow-card);
+    transition: border-color var(--dur), transform var(--dur) var(--ease-out), opacity var(--dur-slow) var(--ease-out);
+  }
+  .card:hover,
+  .card:focus-within { border-color: rgb(61 134 255 / 0.55); }
+  .card__visual {
+    margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) var(--space-2);
+    padding: var(--space-3);
+    border-radius: var(--radius-m);
+    background:
+      radial-gradient(14rem 7rem at 50% 110%, rgb(61 134 255 / 0.16), transparent 70%),
+      var(--bg);
+    border: 1px solid var(--line);
+  }
+  .card__index { font-family: var(--font-display); font-size: 0.72rem; letter-spacing: 0.14em; color: var(--text-dim); }
+  .card__benefit { padding-top: var(--space-3); border-top: 1px solid var(--line); font-size: 0.95rem; color: var(--text); }
+  .card__cta { margin-top: var(--space-2); padding-block: 0.5rem; justify-self: start; }
+  /* Toute la carte est cliquable, le lien reste l'unique élément focalisable. */
+  .card__cta::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+
+  .card:hover :global(.sv-accent),
+  .card:focus-within :global(.sv-accent) { fill: var(--cyan); }
+  .card:hover :global(.sv-line),
+  .card:focus-within :global(.sv-line) { stroke: rgb(150 172 255 / 0.5); }
+  @media (prefers-reduced-motion: no-preference) {
+    .card:hover :global(.sv-move), .card:focus-within :global(.sv-move) { transform: translateY(-4px); }
+    .card:hover :global(.sv-pulse), .card:focus-within :global(.sv-pulse) { transform: scale(1.15); }
+  }
+</style>

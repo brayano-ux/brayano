@@ -1,0 +1,40 @@
+---
+import Icon from './Icon.astro';
+import { whatsappLink } from '@/lib/whatsapp';
+---
+
+<a class="fab" href={whatsappLink('general')} target="_blank" rel="noopener" data-track="whatsapp" data-track-origin="flottant" data-fab>
+  <Icon name="whatsapp" />
+  <span class="visually-hidden">Écrire à Brayano Service sur WhatsApp</span>
+</a>
+
+<style>
+  .fab {
+    position: fixed;
+    right: max(1rem, env(safe-area-inset-right));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+    z-index: 40;
+    display: grid;
+    place-items: center;
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 50%;
+    background: var(--whatsapp);
+    color: var(--whatsapp-ink);
+    box-shadow: 0 14px 30px -12px rgb(0 0 0 / 0.8), 0 0 0 1px rgb(255 255 255 / 0.12) inset;
+    transition: transform var(--dur) var(--ease-out), opacity var(--dur);
+  }
+  .fab :global(svg) { width: 1.7rem; height: 1.7rem; }
+  .fab:hover { transform: scale(1.07); }
+  /* Discret tant que le visiteur n'a pas dépassé le premier écran, où les boutons principaux sont déjà visibles. */
+  :global(.js) .fab:not(.is-visible) { opacity: 0; pointer-events: none; transform: translateY(12px); }
+</style>
+
+<script>
+  const fab = document.querySelector<HTMLElement>('[data-fab]');
+  if (fab) {
+    const update = () => fab.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.6);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+  }
+</script>
